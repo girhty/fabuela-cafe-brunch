@@ -1,136 +1,67 @@
 ---
-import { BRAND } from '../data/site.ts';
-const links = [
-  { label: 'BRUNCH', href: '#menu', n: '01' },
-  { label: 'INSTAGRAM', href: '#instagram', n: '02' },
-  { label: 'LOCATIONS', href: '#locations', n: '03' },
-  { label: 'REVIEWS', href: '#reviews', n: '04' },
-  { label: 'OUR STORY', href: '#philosophy', n: '05' },
-];
+import { brand, nav } from '../data/site.js';
 ---
+<header id="site-header" data-on="dark" class="fixed inset-x-5 top-4 z-50 sm:inset-x-10 sm:top-6">
+  <nav aria-label="Primary" class="grid grid-cols-[1fr_auto_1fr] items-center">
+    <div class="flex items-center">
+      <ul class="hidden gap-7 font-mono text-[11px] tracking-wider lg:flex">
+        {nav.map((l) => (
+          <li><a href={l.href} class="link-u uppercase">{l.label}</a></li>
+        ))}
+      </ul>
+      <button
+        id="menu-toggle"
+        type="button"
+        class="group relative flex h-10 w-10 flex-col items-start justify-center gap-[7px] lg:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="drawer"
+      >
+        <span class="block h-px w-7 bg-current transition-transform duration-500 group-[.is-open]:translate-y-[4px] group-[.is-open]:rotate-45"></span>
+        <span class="block h-px w-5 bg-current transition-all duration-500 group-[.is-open]:w-7 group-[.is-open]:-translate-y-[4px] group-[.is-open]:-rotate-45"></span>
+      </button>
+    </div>
 
-<header
-  id="site-header"
-  data-current-theme="dark"
-  class="fixed inset-x-4 sm:inset-x-8 lg:inset-x-10 top-4 sm:top-6 z-50"
->
-  <div class="flex items-center justify-between gap-4">
-    <!-- Left: nav links (desktop) -->
-    <nav class="hidden lg:flex items-center gap-7" aria-label="Primary">
-      {links.slice(0, 3).map((l) => (
-        <a
-          href={l.href}
-          class="nav-link font-mono text-[11px] tracking-[0.22em] ul-link transition-opacity hover:opacity-100 opacity-90"
-        >
-          {l.label}
-        </a>
-      ))}
-    </nav>
-
-    <!-- Mobile hamburger -->
-    <button
-      id="menu-toggle"
-      type="button"
-      class="lg:hidden hamb inline-flex flex-col gap-[5px] p-2 -m-2"
-      aria-expanded="false"
-      aria-controls="mobile-drawer"
-      aria-label="Toggle navigation"
-    >
-      <span class="block h-[1.5px] w-6"></span>
-      <span class="block h-[1.5px] w-5"></span>
-    </button>
-
-    <!-- Center brand -->
-    <a href="#top" class="flex items-center gap-3 group" aria-label={BRAND.name}>
+    <a href="#top" class="flex items-center gap-2.5" aria-label="Fabuela Cafe & Brunch — home">
       <img
-        src={BRAND.profilePic}
+        src={brand.logo}
         alt=""
         referrerpolicy="no-referrer"
-        class="h-9 w-9 rounded-full object-cover border border-current/20 transition-transform duration-500 group-hover:scale-105"
-        style="border-color: color-mix(in oklab, currentColor 22%, transparent);"
+        width="36"
+        height="36"
+        class="h-8 w-8 rounded-full object-cover ring-1 ring-current sm:h-9 sm:w-9"
       />
-      <div class="leading-none">
-        <div class="brand-word font-display font-black text-sm sm:text-base tracking-[-0.02em]">
-          FABUELA
-        </div>
-        <div class="brand-sub font-mono text-[9px] tracking-[0.28em] mt-1">CAFE &amp; BRUNCH</div>
-      </div>
+      <span class="display text-lg sm:text-xl">Fabuela</span>
     </a>
 
-    <!-- Right: CTA -->
-    <div class="flex items-center gap-4">
-      <nav class="hidden lg:flex items-center gap-7" aria-label="Secondary">
-        {links.slice(3).map((l) => (
-          <a
-            href={l.href}
-            class="nav-link font-mono text-[11px] tracking-[0.22em] ul-link"
-          >
-            {l.label}
-          </a>
-        ))}
-      </nav>
-
-      <a
-        href="#order"
-        class="nav-cta hidden sm:inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] ul-link"
-      >
-        <span class="inline-block h-[6px] w-[6px] rounded-full bg-crema animate-pulse-dot"></span>
-        ORDER ONLINE
+    <div class="flex justify-end">
+      <a href="#order" class="link-u flex items-center gap-2.5 font-mono text-[11px] tracking-wider">
+        <span class="pulse" aria-hidden="true"></span>
+        <span class="hidden sm:inline">ORDER AHEAD</span><span class="sm:hidden">ORDER</span>
       </a>
     </div>
-  </div>
-
-  <!-- Mobile drawer -->
-  <div
-    id="mobile-drawer"
-    class="fixed inset-0 z-[60] bg-roast text-white opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden"
-  >
-    <div class="h-full px-6 py-6 flex flex-col">
-      <div class="flex items-center justify-between">
-        <div class="font-mono text-[10px] tracking-[0.3em] text-white/50">// NAVIGATION</div>
-        <button
-          id="menu-close"
-          type="button"
-          class="font-mono text-[11px] tracking-[0.25em] text-white/70 p-2 -m-2"
-          onclick="document.getElementById('menu-toggle').click()"
-          aria-label="Close navigation"
-        >
-          CLOSE ✕
-        </button>
-      </div>
-
-      <nav class="mt-14 flex-1" aria-label="Mobile">
-        <ul class="flex flex-col gap-6">
-          {links.map((l) => (
-            <li>
-              <a
-                href={l.href}
-                class="group flex items-baseline gap-4"
-              >
-                <span class="font-mono text-[11px] text-crema/80 tracking-[0.22em]">{l.n}</span>
-                <span class="font-display font-black text-4xl sm:text-5xl tracking-[-0.03em] transition-colors group-hover:text-crema">
-                  {l.label}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <div class="mt-auto pt-8 border-t border-white/10 flex items-end justify-between gap-4">
-        <div>
-          <div class="font-mono text-[10px] tracking-[0.3em] text-white/40">OPEN DAILY</div>
-          <div class="font-mono text-[11px] tracking-[0.22em] mt-1">07:00 – 23:00</div>
-        </div>
-        <a
-          href={BRAND.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-mono text-[11px] tracking-[0.22em] ul-link"
-        >
-          {BRAND.instagramHandle}
-        </a>
-      </div>
-    </div>
-  </div>
+  </nav>
 </header>
+
+<div
+  id="drawer"
+  class="fixed inset-0 z-40 flex flex-col justify-between bg-canvas px-5 pb-10 pt-28 text-white transition-[clip-path] duration-700 ease-[cubic-bezier(.76,0,.24,1)] sm:px-10 lg:hidden"
+  style="clip-path: inset(0 0 100% 0)"
+  aria-hidden="true"
+  inert
+>
+  <ul class="space-y-3">
+    {[...nav, { label: 'Instagram', href: '#instagram' }, { label: 'Order Ahead', href: '#order' }].map((l, i) => (
+      <li class="border-b border-white/10 pb-3">
+        <a href={l.href} class="flex items-baseline gap-4">
+          <span class="font-mono text-[11px] text-white/35">{String(i + 1).padStart(2, '0')}</span>
+          <span class="display text-[11vw] sm:text-6xl">{l.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="flex items-center justify-between font-mono text-[11px] text-white/50">
+    <span>@{brand.handle}</span>
+    <span class="font-arabic" lang="ckb" dir="rtl">فابوێلا کافێ</span>
+  </div>
+</div>

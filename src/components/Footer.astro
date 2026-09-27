@@ -1,176 +1,60 @@
 ---
-import { BRAND, LOCATIONS } from '../data/site.ts';
+import { brand, contact, locations, footerCols } from '../data/site.js';
 ---
+<footer data-theme="dark" data-reveal class="relative overflow-hidden bg-canvas pb-8 pt-24 text-white" aria-labelledby="footer-title">
+  <svg class="pointer-events-none absolute -right-40 top-0 h-[600px] w-[1100px] text-white/[.03]" viewBox="0 0 1100 600" fill="none" aria-hidden="true">
+    <path d="M40 500 C 260 180, 460 620, 640 320 S 940 40, 1060 200" stroke="currentColor" stroke-width="110" stroke-linecap="round" />
+  </svg>
 
-<footer
-  data-theme="dark"
-  class="relative bg-roast pt-24 sm:pt-28 pb-8 overflow-hidden grain"
->
-  <div class="swirl" aria-hidden="true" style="opacity:.04"></div>
-
-  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
-    <!-- Top row -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+  <div class="relative mx-auto max-w-[1440px] px-5 sm:px-10">
+    <div class="grid grid-cols-1 gap-14 border-b border-white/10 pb-16 lg:grid-cols-12">
       <div class="lg:col-span-5">
-        <div class="reveal-mask">
-          <div class="flex items-center gap-4">
-            <img
-              src={BRAND.profilePic}
-              alt={BRAND.name}
-              referrerpolicy="no-referrer"
-              loading="lazy"
-              class="h-12 w-12 rounded-full object-cover border border-white/15"
-            />
-            <div>
-              <div class="font-display font-black text-2xl tracking-[-0.03em] text-white leading-none">
-                FABUELA
-              </div>
-              <div class="font-mono text-[10px] tracking-[0.3em] text-white/45 mt-1.5">
-                CAFE &amp; BRUNCH · {BRAND.nameKu}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p class="reveal-mask mt-6 max-w-sm">
-          <span class="block font-sans text-[13.5px] leading-relaxed text-white/55">
-            {BRAND.tagline}
-          </span>
-        </p>
+        <a href="#top" class="flex items-center gap-4" aria-label="Back to top">
+          <img src={brand.logo} alt="Fabuela logo" referrerpolicy="no-referrer" loading="lazy" width="64" height="64" class="h-14 w-14 rounded-full object-cover ring-1 ring-white/25" />
+          <span id="footer-title" class="mask display text-5xl sm:text-6xl"><span>Fabuela</span></span>
+        </a>
+        <p class="mask mt-6 font-mono text-[11px] tracking-wider text-white/55"><span style="--d:120ms">{brand.tagline}</span></p>
+        <p class="mask mt-2 font-arabic text-lg text-white/40" lang="ckb" dir="rtl"><span style="--d:200ms">فابوێلا کافێ · یەکەم کافێی بڕانچ لە عێراق</span></p>
       </div>
 
-      <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:pl-10">
-        <div>
-          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45">EXPLORE</div>
-          <ul class="mt-5 space-y-3">
-            {[
-              { l: 'BRUNCH MENU', h: '#menu' },
-              { l: 'INSTAGRAM', h: '#instagram' },
-              { l: 'REVIEWS', h: '#reviews' },
-            ].map((it) => (
-              <li>
-                <a href={it.h} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
-                  {it.l}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45">VISIT</div>
-          <ul class="mt-5 space-y-3">
-            {[
-              { l: 'OUR LOCATIONS', h: '#locations' },
-              { l: 'OUR STORY', h: '#philosophy' },
-              { l: 'ORDER ONLINE', h: '#order' },
-            ].map((it) => (
-              <li>
-                <a href={it.h} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
-                  {it.l}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45">CONTACT</div>
-          <ul class="mt-5 space-y-3">
-            <li>
-              <a href={BRAND.phoneHref} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
-                {BRAND.phone}
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${BRAND.email}`} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
-                {BRAND.email}
-              </a>
-            </li>
-            <li>
-              <a
-                href={BRAND.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link"
-              >
-                {BRAND.instagramHandle}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Locations row -->
-    <div class="py-10 border-b border-white/10">
-      <div class="reveal-mask mb-8">
-        <div class="flex items-center gap-3">
-          <span class="h-[6px] w-[6px] rounded-full bg-crema animate-pulse-dot"></span>
-          <div class="font-mono text-[10px] tracking-[0.3em] text-white/55">OUR LOCATIONS</div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8 lg:gap-y-0 lg:divide-x divide-white/10">
-        {LOCATIONS.map((loc, i) => (
-          <div class="lg:px-10 first:lg:pl-0">
-            <div class="font-mono text-[9.5px] tracking-[0.3em] text-crema/70">
-              0{i + 1}
-            </div>
-            <div class="font-display font-black text-lg tracking-[-0.01em] text-white mt-2">
-              {loc.city}
-            </div>
-            <div class="font-mono text-[11px] tracking-[0.16em] leading-relaxed text-white/55 mt-2">
-              {loc.lines.map((line) => <div>{line}</div>)}
-            </div>
+      <nav aria-label="Footer" class="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-7">
+        {footerCols.map((col, ci) => (
+          <div>
+            <p class="mask font-mono text-[11px] text-white/35"><span style={`--d:${ci * 80}ms`}>{col.heading}</span></p>
+            <ul class="mt-4 space-y-2 font-mono text-[12px] uppercase">
+              {col.links.map((l, li) => (
+                <li class="mask">
+                  <span style={`--d:${ci * 80 + (li + 1) * 60}ms`}>
+                    <a href={l.href} class="link-u" {...(l.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}</a>
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
-        <div class="lg:px-10">
-          <div class="font-mono text-[9.5px] tracking-[0.3em] text-crema/70">HOURS</div>
-          <div class="font-display font-black text-lg tracking-[-0.01em] text-white mt-2">
-            OPEN DAILY
+      </nav>
+    </div>
+
+    <div class="border-b border-white/10 py-10">
+      <p class="mask font-mono text-[11px] tracking-wider"><span class="flex items-center gap-3"><span class="pulse" aria-hidden="true"></span> OUR LOCATIONS</span></p>
+      <div class="mt-6 flex flex-col gap-6 font-mono text-[12px] uppercase leading-relaxed lg:flex-row lg:items-stretch lg:gap-0">
+        {locations.map((l, i) => (
+          <div class={`lg:px-8 ${i === 0 ? 'lg:pl-0' : ''} lg:border-r lg:border-white/10`}>
+            <p class="mask"><span style={`--d:${i * 80}ms`}>{l.city} — {l.status}</span></p>
+            <p class="mask text-white/45"><span style={`--d:${i * 80 + 60}ms`}>{l.lines[0]}</span></p>
           </div>
-          <div class="font-mono text-[11px] tracking-[0.16em] leading-relaxed text-white/55 mt-2">
-            <div>07:00 – 23:00</div>
-            <div>GMT+3</div>
-          </div>
+        ))}
+        <div class="lg:pl-8">
+          <p class="mask"><span>Open now</span></p>
+          <p class="mask text-white/45"><span style="--d:60ms">Brunch all day</span></p>
         </div>
       </div>
     </div>
 
-    <!-- Legal bar -->
-    <div class="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="font-mono text-[10px] tracking-[0.28em] text-white/40">
-        © {new Date().getFullYear()} FABUELA CAFE &amp; BRUNCH.
-      </div>
-      <div class="flex items-center gap-6">
-        <a
-          href={BRAND.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors"
-        >
-          INSTAGRAM
-        </a>
-        <span class="text-white/20">·</span>
-        <a
-          href="https://tiktok.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors"
-        >
-          TIKTOK
-        </a>
-      </div>
-      <div class="flex items-center gap-6">
-        <a href="#privacy" class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors">
-          PRIVACY POLICY
-        </a>
-        <span class="text-white/20">/</span>
-        <a href="#terms" class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors">
-          TERMS OF USE
-        </a>
-      </div>
+    <div class="flex flex-col gap-4 pt-8 font-mono text-[10px] uppercase tracking-wider text-white/45 md:flex-row md:items-center md:justify-between">
+      <p class="mask"><span>© 2026 Fabuela Cafe &amp; Brunch.</span></p>
+      <p class="mask"><span><a href={brand.igUrl} target="_blank" rel="noopener" class="link-u">Instagram</a> &amp; <a href={contact.tel} class="link-u">{contact.phone}</a></span></p>
+      <p class="mask"><span><a href="#top" class="link-u">Privacy policy</a> / <a href="#top" class="link-u">Terms of use</a></span></p>
     </div>
   </div>
 </footer>

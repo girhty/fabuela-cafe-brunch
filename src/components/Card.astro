@@ -1,111 +1,26 @@
 ---
 interface Props {
-  index?: string;
-  name: string;
-  price?: string;
-  image: string;
-  tag?: string;
-  rotate?: string;
-  variant?: 'menu' | 'media';
-  caption?: string;
-  likes?: string;
-  comments?: string;
+  title: string;
+  body: string;
   href?: string;
+  icon?: string;
 }
-const {
-  index,
-  name,
-  price,
-  image,
-  tag,
-  rotate = '0deg',
-  variant = 'menu',
-  caption,
-  likes,
-  comments,
-  href,
-} = Astro.props;
+
+const { href, title, body, icon } = Astro.props;
 ---
 
-{variant === 'menu' ? (
-  <article
-    class="group relative bg-bone border border-[#070707]/90 rounded-[2px] overflow-hidden flex flex-col"
-    data-tilt="6"
-  >
-    <div class="flex items-center justify-between px-5 pt-5">
-      <span class="font-mono text-[11px] tracking-[0.24em] text-[#070707]/45">{index}</span>
-      {tag && (
-        <span class="font-mono text-[9px] tracking-[0.28em] text-crema2 border border-crema2/40 px-2 py-1 rounded-full">
-          {tag}
-        </span>
-      )}
-    </div>
-
-    <div class="relative px-5 pt-6 pb-7">
-      <div class="relative mx-auto aspect-square w-[78%] max-w-[240px]">
-        <div
-          class="absolute inset-0 rounded-full"
-          style="background: radial-gradient(closest-side, rgba(213,140,61,0.16), transparent 70%);"
-          aria-hidden="true"
-        ></div>
-        <img
-          src={image}
-          alt={name}
-          referrerpolicy="no-referrer"
-          loading="lazy"
-          class="relative h-full w-full object-contain transition-transform duration-700 ease-out group-hover:-translate-y-2 group-hover:scale-[1.04]"
-          style={`transform: rotate(${rotate});`}
-        />
-      </div>
-    </div>
-
-    <div class="mt-auto border-t border-[#070707]/90 px-5 py-4 flex items-baseline justify-between gap-3">
-      <div class="leading-none">
-        <div class="font-display font-black text-base sm:text-lg tracking-[-0.02em] text-[#070707]">
-          {name}
-        </div>
-      </div>
-      <div class="font-mono text-[11px] tracking-[0.18em] text-[#070707]/70 whitespace-nowrap">
-        {price}
-      </div>
-    </div>
-  </article>
-) : (
-  <a
-    href={href ?? '#'}
-    target={href ? '_blank' : undefined}
-    rel={href ? 'noopener noreferrer' : undefined}
-    class="group relative block overflow-hidden rounded-[2px] border border-white/10 aspect-square bg-white/[0.03]"
-    data-tilt="6"
-    aria-label={caption ?? name}
-  >
-    <img
-      src={image}
-      alt={caption ? caption.slice(0, 90) : name}
-      referrerpolicy="no-referrer"
-      loading="lazy"
-      class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
-
-    <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-      <div class="flex items-center gap-4 font-mono text-[10px] tracking-[0.22em] text-white/70">
-        <span class="inline-flex items-center gap-1.5">
-          <span class="text-crema">★</span> {likes}
-        </span>
-        <span class="inline-flex items-center gap-1.5">
-          <span>◇</span> {comments}
-        </span>
-      </div>
-      {caption && (
-        <p class="mt-2 font-sans text-[12.5px] leading-snug text-white/90 line-clamp-2 max-w-[92%]">
-          {caption}
-        </p>
-      )}
-    </div>
-
-    <div class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center opacity-0 -translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-      <span class="text-white text-sm">↗</span>
-    </div>
-  </a>
-)}
+<div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow">
+  {icon && <div class="text-3xl mb-4">{icon}</div>}
+  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+    {href ? (
+      <a href={href} class="hover:text-teal-600 dark:hover:text-teal-400 focus:outline-none focus:underline">
+        {title} &rarr;
+      </a>
+    ) : (
+      title
+    )}
+  </h3>
+  <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+    {body}
+  </p>
+</div>

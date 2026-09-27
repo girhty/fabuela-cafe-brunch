@@ -4,55 +4,231 @@ import Preloader from '../components/Preloader.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Menu from '../components/Menu.astro';
-import InstagramFeed from '../components/InstagramFeed.astro';
 import Locations from '../components/Locations.astro';
-import Reviews from '../components/Reviews.astro';
 import Philosophy from '../components/Philosophy.astro';
 import Order from '../components/Order.astro';
+import Reviews from '../components/Reviews.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
 import Footer from '../components/Footer.astro';
-import { BRAND } from '../data/site.ts';
+import { brand, rating } from '../data/site.js';
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Restaurant',
-  name: BRAND.name,
-  image: BRAND.profilePic,
-  servesCuisine: ['Brunch', 'Cafe', 'Middle Eastern'],
-  priceRange: 'IQD 5,000 – 25,000',
-  telephone: BRAND.phone,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Empire Pearl P7',
-    addressLocality: 'Erbil',
-    addressRegion: 'Erbil Governorate',
-    postalCode: '44001',
-    addressCountry: 'IQ',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: BRAND.rating,
-    reviewCount: BRAND.reviewCount,
-  },
-  openingHours: 'Mo-Su 07:00-23:00',
-  sameAs: [BRAND.instagramUrl],
-};
+const title = 'Fabuela Cafe & Brunch | فابوێلا کافێ — The First Brunch Café in Iraq';
+const description = `Fabuela Cafe & Brunch in Erbil — eggs benedict, French toast, Korean toast, fresh juices and special sauces. Rated ${rating.value}★ from ${rating.total} Google reviews. Empire Pearl P7, Erbil.`;
 ---
-
-<Layout>
+<Layout title={title} description={description} logo={brand.logo}>
   <Preloader />
   <Header />
-
-  <main id="main">
+  <main id="top">
     <Hero />
     <Menu />
-    <InstagramFeed />
     <Locations />
-    <Reviews />
     <Philosophy />
     <Order />
+    <Reviews />
+    <InstagramFeed />
   </main>
-
   <Footer />
-
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Layout>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- Spring primitive ---------- */
+  class Spring {
+    x = 0; v = 0; t = 0;
+    constructor(public k = 0.07, public d = 0.8) {}
+    step() {
+      this.v += (this.t - this.x) * this.k;
+      this.v *= this.d;
+      this.x += this.v;
+      return this.x;
+    }
+  }
+
+  /* ---------- Reveals ---------- */
+  let revealsStarted = false;
+  function startReveals() {
+    if (revealsStarted) return;
+    revealsStarted = true;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+    );
+    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+  }
+
+  /* ---------- Preloader ---------- */
+  const pl = document.getElementById('preloader');
+  const countEl = document.getElementById('pl-count');
+  const liq = document.getElementById('pl-liquid');
+  function endLoading() {
+    document.body.classList.remove('is-loading');
+    startReveals();
+  }
+  if (pl && countEl && liq && !reduce) {
+    const eager = Array.from(document.images).filter((i) => i.loading !== 'lazy');
+    const total = eager.length + 1;
+    let loaded = 0;
+    const bump = () => { loaded++; };
+    eager.forEach((img) => {
+      if (img.complete) bump();
+      else { img.addEventListener('load', bump, { once: true }); img.addEventListener('error', bump, { once: true }); }
+    });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(bump); else bump();
+    const start = performance.now();
+    let shown = 0;
+    let done = false;
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const res = loaded / total;
+      let target = Math.min(res, Math.min(1, elapsed / 1500)) * 100;
+      if (elapsed > 4200) target = 100;
+      shown += (target - shown) * 0.09;
+      if (target === 100 && 100 - shown < 0.6) shown = 100;
+      countEl.textContent = String(Math.round(shown)).padStart(3, '0');
+      liq.setAttribute('y', String(104 - (shown / 100) * 84));
+      if (shown >= 100 && !done) {
+        done = true;
+        setTimeout(() => {
+          pl.classList.add('pour');
+          setTimeout(() => {
+            pl.style.clipPath = 'inset(100% 0 0 0)';
+            endLoading();
+            setTimeout(() => pl.remove(), 1300);
+          }, 650);
+        }, 300);
+        return;
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  } else {
+    pl?.remove();
+    endLoading();
+  }
+
+  /* ---------- Header theme inversion + drawer ---------- */
+  const header = document.getElementById('site-header');
+  const themed = Array.from(document.querySelectorAll<HTMLElement>('[data-theme]'));
+  const drawer = document.getElementById('drawer');
+  const toggle = document.getElementById('menu-toggle');
+  let drawerOpen = false;
+  function setDrawer(open: boolean) {
+    drawerOpen = open;
+    if (!drawer || !toggle) return;
+    drawer.style.clipPath = open ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)';
+    drawer.setAttribute('aria-hidden', String(!open));
+    drawer.toggleAttribute('inert', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  toggle?.addEventListener('click', () => setDrawer(!drawerOpen));
+  drawer?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setDrawer(false)));
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawerOpen) setDrawer(false); });
+
+  function updateHeader() {
+    if (!header) return;
+    if (drawerOpen) { header.dataset.on = 'dark'; return; }
+    const r = header.getBoundingClientRect();
+    const y = r.top + r.height / 2;
+    for (const s of themed) {
+      const b = s.getBoundingClientRect();
+      if (b.top <= y && b.bottom > y) { header.dataset.on = s.dataset.theme; break; }
+    }
+  }
+
+  /* ---------- 3D tilt ---------- */
+  const tilts = Array.from(document.querySelectorAll<HTMLElement>('[data-tilt]')).map((el) => {
+    const max = Number(el.dataset.tiltMax || 8);
+    const area = (el.closest('[data-tilt-area]') as HTMLElement) || el;
+    const rx = new Spring(0.06, 0.82);
+    const ry = new Spring(0.06, 0.82);
+    if (finePointer && !reduce) {
+      area.addEventListener('pointermove', (e) => {
+        const b = area.getBoundingClientRect();
+        const px = (e.clientX - b.left) / b.width - 0.5;
+        const py = (e.clientY - b.top) / b.height - 0.5;
+        ry.t = px * max * 2;
+        rx.t = -py * max * 2;
+      });
+      area.addEventListener('pointerleave', () => { rx.t = 0; ry.t = 0; });
+    }
+    return { el, rx, ry };
+  });
+
+  /* ---------- Parallax ---------- */
+  const parallax = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]')).map((el) => ({
+    el, f: Number(el.dataset.parallax || 0.08), s: new Spring(0.08, 0.78),
+  }));
+
+  /* ---------- Locations dial ---------- */
+  const dialSection = document.getElementById('locations');
+  const dialCup = document.querySelector<HTMLElement>('[data-dial-cup]');
+  const dialRot = new Spring(0.05, 0.84);
+  const dialLean = new Spring(0.05, 0.84);
+  if (dialSection && finePointer) {
+    dialSection.addEventListener('pointermove', (e) => {
+      const b = dialSection.getBoundingClientRect();
+      dialLean.t = ((e.clientX - b.left) / b.width - 0.5) * 16;
+    });
+    dialSection.addEventListener('pointerleave', () => { dialLean.t = 0; });
+  }
+
+  /* ---------- Receipt feed ---------- */
+  const orderSection = document.getElementById('order');
+  const receipt = document.getElementById('receipt');
+  const barcode = document.getElementById('barcode');
+  const STEPS = 14;
+  let lastStep = -1;
+
+  const d = new Date();
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const rd = document.getElementById('r-date');
+  const rt = document.getElementById('r-time');
+  if (rd) rd.textContent = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+  if (rt) rt.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+
+  function loop() {
+    updateHeader();
+    const vh = window.innerHeight;
+
+    if (!reduce) {
+      for (const t of tilts) {
+        const x = t.rx.step();
+        const y = t.ry.step();
+        t.el.style.transform = `perspective(1100px) rotateX(${x.toFixed(3)}deg) rotateY(${y.toFixed(3)}deg)`;
+      }
+      for (const p of parallax) {
+        const host = p.el.parentElement!;
+        const b = host.getBoundingClientRect();
+        if (b.bottom < -200 || b.top > vh + 200) continue;
+        p.s.t = (b.top + b.height / 2 - vh / 2) * p.f;
+        p.el.style.transform = `translate3d(0, ${p.s.step().toFixed(2)}px, 0)`;
+      }
+      if (dialSection && dialCup) {
+        const b = dialSection.getBoundingClientRect();
+        const prog = Math.min(1, Math.max(0, (vh - b.top) / (vh + b.height)));
+        dialRot.t = prog * 38 * 2 - 10;
+        dialCup.style.transform = `rotate(${(dialRot.step() + dialLean.step()).toFixed(2)}deg)`;
+      }
+    }
+
+    if (orderSection && receipt) {
+      const b = orderSection.getBoundingClientRect();
+      const range = Math.max(1, b.height - vh);
+      const p = reduce ? 1 : Math.min(1, Math.max(0, -b.top / range));
+      const step = Math.min(STEPS, Math.floor(p * 1.3 * STEPS));
+      if (step !== lastStep) {
+        lastStep = step;
+        receipt.style.transform = `translateY(${(-100 + (step / STEPS) * 100).toFixed(2)}%)`;
+        barcode?.classList.toggle('settled', step >= STEPS);
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>

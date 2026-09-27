@@ -1,86 +1,58 @@
 ---
-const claims = ['GOOD BRUNCH.', 'NO CEREMONY.', 'NO WAITING.'];
+import { posts } from '../data/site.js';
+let seed = 11;
+const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+const beans = Array.from({ length: 20 }, () => ({
+  left: rnd() * 100,
+  s: 12 + rnd() * 30,
+  t: 18 + rnd() * 24,
+  delay: -rnd() * 40,
+  x: (rnd() - 0.5) * 30,
+  r: rnd() * 720 - 360,
+  b: rnd() < 0.3 ? 4 : rnd() < 0.5 ? 1.5 : 0,
+}));
+const hero = posts[8];
+const claims = ['Good food.', 'No ceremony.', 'No rush.'];
 ---
-
 <section
-  id="philosophy"
+  id="story"
   data-theme="dark"
-  class="relative bg-roast py-24 sm:py-32 lg:py-40 overflow-hidden grain"
+  data-reveal
+  aria-labelledby="phil-title"
+  class="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden bg-canvas py-28 text-white"
 >
-  <div class="ambient-liquid" aria-hidden="true" style="opacity:.7"></div>
-  <div
-    class="pointer-events-none absolute inset-0 z-[1]"
-    style="background: linear-gradient(180deg, rgba(7,7,7,0.75) 0%, transparent 35%, transparent 65%, rgba(7,7,7,0.75) 100%);"
-    aria-hidden="true"
-  ></div>
+  <div class="liquid" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+  <div class="absolute inset-0 z-0 bg-[linear-gradient(180deg,rgba(10,12,8,.92)_0%,rgba(10,12,8,.25)_40%,rgba(10,12,8,.25)_60%,rgba(10,12,8,.95)_100%)]" aria-hidden="true"></div>
 
-  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
-    <!-- Top headline -->
-    <h2 class="font-display font-black leading-[0.9] tracking-[-0.045em] text-white text-[clamp(2rem,6vw,5.2rem)] max-w-[20ch]">
-      <span class="reveal-mask block"><span>THE CITY NEVER STOPS.</span></span>
-      <span class="reveal-mask block">
-        <span>YOUR BRUNCH</span>
-        <span class="script-wipe font-script font-bold text-crema ml-3 align-baseline tracking-normal text-[0.85em]"
-          >shouldn’t</span
-        >
-      </span>
-      <span class="reveal-mask block"><span>SLOW YOU DOWN.</span></span>
+  <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+    {beans.map((b) => (
+      <span class="bean" style={`left:${b.left}%;--s:${b.s}px;--t:${b.t}s;animation-delay:${b.delay}s;--x:${b.x}vw;--r:${b.r}deg;--b:${b.b}px`}></span>
+    ))}
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-10">
+    <h2 id="phil-title" class="display text-[10.5vw] sm:text-[8vw] lg:text-[clamp(56px,6.4vw,104px)]">
+      <span class="mask"><span>Erbil never stops.</span></span>
+      <span class="mask"><span class="text-white/40" style="--d:120ms">Your brunch</span></span>
+      <span class="mask"><span class="text-white/40" style="--d:240ms">shouldn't rush you.</span></span>
     </h2>
+  </div>
 
-    <!-- Middle floating cup visual -->
-    <div class="relative my-20 sm:my-24 flex items-center justify-center">
-      <div class="relative" data-tilt="5">
-        <div class="absolute -inset-10 rounded-full" style="background: radial-gradient(closest-side, rgba(213,140,61,0.28), transparent 70%);" aria-hidden="true"></div>
-        <img
-          src="https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/801304995_17944352034319753_3473979918832957175_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=lOCgKyVIN_MQ7kNvwFq-P21&_nc_oc=AdrisQGRnp7CBRQXT2C1baXch8QVAcss5DhPiUUD20xgLxV-etUVFqJFbJTqe0P37cw&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=894QDhTe_WSwFhcRmKJ6Dw&_nc_ss=79a8c&oh=00_AQK_umYYuAyr8qVmc3ZLEkMMLwaqxIc6zrOoJB_D8gdjVw&oe=6ABF2A0B"
-          alt="Fabuela morning table"
-          referrerpolicy="no-referrer"
-          loading="lazy"
-          class="relative w-[220px] sm:w-[320px] lg:w-[380px] h-auto rounded-full object-cover aspect-square border border-white/10 shadow-2xl"
-        />
-
-        <!-- Drifting beans -->
-        {[
-          { top: '-12%', left: '8%', s: 26, delay: '0s' },
-          { top: '14%', right: '4%', s: 18, delay: '1.2s' },
-          { bottom: '-6%', left: '14%', s: 22, delay: '2s' },
-          { top: '40%', left: '-8%', s: 14, delay: '.6s' },
-          { bottom: '6%', right: '10%', s: 20, delay: '1.8s' },
-        ].map((b) => (
-          <span
-            class="absolute animate-drift-slow"
-            style={`${b.top ? 'top:' + b.top + ';' : ''}${b.bottom ? 'bottom:' + b.bottom + ';' : ''}${b.left ? 'left:' + b.left + ';' : ''}${b.right ? 'right:' + b.right + ';' : ''}width:${b.s}px;height:${b.s}px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #C69B6E 0%, #6E3E22 55%, #2C1A11 100%);box-shadow:0 10px 24px rgba(0,0,0,.5);animation-delay:${b.delay};`}
-            aria-hidden="true"
-          ></span>
-        ))}
-      </div>
+  <div class="pointer-events-none relative z-10 my-12 flex justify-center lg:absolute lg:inset-0 lg:my-0 lg:items-center" aria-hidden="true">
+    <div class="float-y h-64 w-48 overflow-hidden rounded-[999px_999px_32px_32px] shadow-[0_60px_120px_-20px_rgba(0,0,0,.9)] ring-1 ring-white/15 sm:h-80 sm:w-60 lg:translate-x-[22vw] lg:translate-y-[4vh]">
+      <img src={hero.image} alt="" referrerpolicy="no-referrer" loading="lazy" class="h-full w-full object-cover" width="320" height="420" />
     </div>
+  </div>
 
-    <!-- Bottom grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-      <div class="lg:col-span-3 reveal-mask">
-        <div class="font-mono text-[10.5px] tracking-[0.3em] text-white/55">
-          // OUR PHILOSOPHY
-        </div>
-      </div>
-
-      <div class="lg:col-span-6 lg:pl-10">
-        <p class="reveal-mask">
-          <span class="block font-sans text-[15px] leading-relaxed text-white/65 max-w-xl">
-            Stay for a conversation or leave with the cup in your hand — both work, neither takes effort. Our kitchen opens at seven and closes at eleven. Nothing here is rushed, and nothing keeps you longer than you meant to stay.
-          </span>
-        </p>
-      </div>
-
-      <div class="lg:col-span-3 lg:text-right">
-        {claims.map((c, i) => (
-          <div class="reveal-mask" style={`transition-delay:${i * 120}ms`}>
-            <div class="font-mono text-[11.5px] tracking-[0.28em] text-white/85 uppercase py-1">
-              {c}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+  <div class="relative z-10 mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-10 px-5 sm:px-10 lg:grid-cols-12">
+    <p class="eyebrow fade-up text-white/55 lg:col-span-3">Our philosophy</p>
+    <p class="fade-up max-w-xl text-[17px] leading-relaxed text-white/60 lg:col-span-6" style="--d:150ms">
+      Fabuela looks like any other café from the street — then you step inside. Calm light, welcoming faces, and plates that arrive
+      exactly how they should. Stay for a long conversation or take your order to go; nothing here is rushed, and nothing keeps you
+      longer than you meant to stay.
+    </p>
+    <ul class="font-mono text-[13px] uppercase leading-7 tracking-wider lg:col-span-3 lg:text-right">
+      {claims.map((c, i) => (<li class="mask"><span style={`--d:${300 + i * 120}ms`}>{c}</span></li>))}
+    </ul>
   </div>
 </section>

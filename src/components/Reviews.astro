@@ -1,94 +1,75 @@
 ---
-import { BRAND, REVIEWS } from '../data/site.ts';
-const counts = [
-  { label: 'GOOGLE', value: BRAND.rating.toFixed(1) },
-  { label: 'REVIEWS', value: BRAND.reviewCount.toString() },
-  { label: 'CITIES', value: '03' },
-  { label: 'SINCE', value: '2019' },
-];
+import { reviews, rating, contact } from '../data/site.js';
+const stars = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
 ---
-
 <section
   id="reviews"
-  data-theme="dark"
-  class="relative bg-roast py-24 sm:py-32 lg:py-40 overflow-hidden grain"
+  data-theme="light"
+  data-reveal
+  aria-labelledby="rev-title"
+  class="relative overflow-hidden bg-bone py-24 text-canvas sm:py-32"
 >
-  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
-    <!-- Header -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-      <div class="lg:col-span-7">
-        <div class="reveal-mask">
-          <div class="font-mono text-[10.5px] tracking-[0.3em] text-white/55 mb-6">
-            // LOVED BY 887 GUESTS
-          </div>
-        </div>
-        <h2 class="font-display font-black leading-[0.9] tracking-[-0.045em] text-white text-[clamp(2rem,6.4vw,4.8rem)]">
-          <span class="reveal-mask block"><span>WHAT THEY SAY</span></span>
-          <span class="reveal-mask block"><span>ABOUT US.</span></span>
+  <div class="mx-auto max-w-[1440px] px-5 sm:px-10">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <p class="eyebrow fade-up text-canvas/60">Google reviews</p>
+        <h2 id="rev-title" class="display mt-5 text-[12vw] sm:text-7xl lg:text-[clamp(56px,5.6vw,96px)]">
+          <span class="mask"><span>Worth the</span></span>
+          <span class="mask"><span style="--d:120ms">midday heat.</span></span>
         </h2>
       </div>
-
-      <div class="lg:col-span-5 lg:pl-10">
-        <div class="reveal-mask inline-flex items-center gap-4 border border-white/15 rounded-full px-5 py-3 bg-white/[0.03]">
-          <span class="text-crema text-xl leading-none">★</span>
-          <span class="font-display font-black text-2xl tracking-[-0.02em] text-white">
-            {BRAND.rating.toFixed(1)}
-          </span>
-          <span class="h-5 w-px bg-white/15"></span>
-          <span class="font-mono text-[10px] tracking-[0.24em] text-white/60">
-            ON GOOGLE REVIEWS
-          </span>
+      <div class="fade-up flex items-end gap-6 lg:col-span-7 lg:justify-end" style="--d:200ms">
+        <div class="flex items-center gap-5 border border-canvas px-6 py-5">
+          <span class="display text-7xl">{rating.value}</span>
+          <div class="font-mono text-[11px] uppercase">
+            <p class="text-lg tracking-widest text-canvas" aria-label={`${rating.value} out of 5 stars`}>★★★★★</p>
+            <p class="text-canvas/55">{rating.total} reviews on Google</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Cards -->
-    <div class="mt-14 sm:mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
-      {REVIEWS.map((r, i) => (
-        <article
-          class="fade-up relative border border-white/12 rounded-[2px] p-7 sm:p-8 bg-white/[0.02] flex flex-col"
-          style={`transition-delay:${i * 100}ms`}
-          data-tilt="4"
-        >
-          <div class="flex items-center gap-1 text-crema text-[15px]">
-            {Array.from({ length: 5 }).map((_, k) => (
-              <span class={k < r.rating ? '' : 'text-white/20'}>★</span>
-            ))}
-          </div>
-
-          <p class="mt-6 font-sans text-[14.5px] leading-relaxed text-white/75 flex-1">
-            “{r.text}”
-          </p>
-
-          <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-            <div>
-              <div class="font-display font-black text-base tracking-[-0.01em] text-white">
-                {r.author}
-              </div>
-              <div class="font-mono text-[9.5px] tracking-[0.28em] text-white/40 mt-1">
-                {r.role}
-              </div>
+    <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {reviews.map((r, i) => (
+        <figure data-tilt data-tilt-max="4" class="tilt fade-up flex flex-col justify-between border border-canvas bg-bone p-7" style={`--d:${i * 120}ms`}>
+          <div>
+            <div class="flex items-center justify-between font-mono text-[11px]">
+              <span class="text-canvas/40">{String(i + 1).padStart(2, '0')}</span>
+              <span class="tracking-widest" aria-label={`${r.rating} out of 5 stars`}>{stars(r.rating)}</span>
             </div>
-            <div class="font-mono text-[9.5px] tracking-[0.28em] text-white/40">
-              {String(i + 1).padStart(2, '0')}
-            </div>
+            <blockquote class="mt-6 text-[16px] leading-relaxed text-canvas/80">“{r.text}”</blockquote>
           </div>
-        </article>
+          <figcaption class="mt-8 flex items-center gap-3 border-t border-canvas/15 pt-4 font-mono text-[11px] uppercase">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-canvas text-bone">{r.author_name.charAt(0)}</span>
+            {r.author_name}
+          </figcaption>
+        </figure>
       ))}
     </div>
 
-    <!-- Counts -->
-    <div class="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 border-y border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10">
-      {counts.map((c) => (
-        <div class="px-6 py-8 flex flex-col items-center justify-center">
-          <div class="font-display font-black text-4xl sm:text-5xl tracking-[-0.04em] text-white leading-none tabular-nums">
-            {c.value}
-          </div>
-          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45 mt-3">
-            {c.label}
-          </div>
+    <!-- Contact & map card -->
+    <div class="mt-16 grid grid-cols-1 overflow-hidden border border-canvas lg:grid-cols-12">
+      <div class="flex flex-col justify-between gap-10 p-7 sm:p-10 lg:col-span-5">
+        <div>
+          <p class="flex items-center gap-3 font-mono text-[11px] tracking-wider"><span class="pulse" aria-hidden="true"></span> OPEN NOW · VISIT US</p>
+          <h3 class="display mt-5 text-4xl sm:text-5xl">Empire Pearl P7</h3>
+          <address class="mt-4 font-mono text-[12px] uppercase not-italic leading-relaxed text-canvas/60">{contact.address}</address>
         </div>
-      ))}
+        <dl class="grid grid-cols-2 gap-6 font-mono text-[12px] uppercase">
+          <div><dt class="text-canvas/40">Phone</dt><dd class="mt-1"><a href={contact.tel} class="link-u">{contact.phone}</a></dd></div>
+          <div><dt class="text-canvas/40">Hours</dt><dd class="mt-1">Brunch all day</dd></div>
+        </dl>
+        <a href={contact.mapsUrl} target="_blank" rel="noopener" class="link-cta self-start font-mono text-[12px] tracking-wider">OPEN IN GOOGLE MAPS <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <div class="relative min-h-[340px] border-t border-canvas lg:col-span-7 lg:border-l lg:border-t-0">
+        <iframe
+          title="Map showing Fabuela Cafe & Brunch in Erbil"
+          src={contact.embed}
+          class="absolute inset-0 h-full w-full grayscale-[.85] contrast-[1.05]"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
     </div>
   </div>
 </section>

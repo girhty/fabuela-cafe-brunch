@@ -1,117 +1,71 @@
 ---
-import { MENU_ITEMS } from '../data/site.ts';
-import Card from './Card.astro';
+import { menu, brand } from '../data/site.js';
 ---
-
 <section
   id="menu"
   data-theme="light"
-  class="relative bg-bone text-[#070707] py-24 sm:py-32 lg:py-40 overflow-hidden"
+  data-reveal
+  aria-labelledby="menu-title"
+  class="relative overflow-hidden bg-bone py-24 text-canvas sm:py-32"
 >
-  <!-- Oversized swirl watermark -->
-  <div class="swirl" aria-hidden="true"></div>
+  <!-- Brand swirl -->
+  <svg class="pointer-events-none absolute -right-40 -top-20 h-[900px] w-[1300px] text-oat" viewBox="0 0 1300 900" fill="none" aria-hidden="true">
+    <path d="M40 700 C 240 420, 520 900, 700 560 S 1000 120, 1260 380" stroke="currentColor" stroke-width="140" stroke-linecap="round" />
+  </svg>
 
-  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
-    <!-- Header -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-      <div class="lg:col-span-7">
-        <div class="reveal-mask">
-          <div class="font-mono text-[10.5px] tracking-[0.3em] text-[#070707]/55 mb-6">
-            // OUR MENU
-          </div>
-        </div>
-        <h2 class="font-display font-black leading-[0.88] tracking-[-0.045em] text-[#070707] text-[clamp(2.2rem,7.4vw,5.6rem)]">
-          <span class="reveal-mask block"><span>FAVORITES</span></span>
-          <span class="reveal-mask block"><span>MADE DAILY.</span></span>
+  <div class="relative mx-auto max-w-[1440px] px-5 sm:px-10">
+    <div class="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p class="eyebrow fade-up text-canvas/60">Our menu</p>
+        <h2 id="menu-title" class="display mt-5 text-[13vw] sm:text-[9vw] lg:text-[clamp(64px,7vw,112px)]">
+          <span class="mask"><span>Favorites</span></span>
+          <span class="mask"><span style="--d:120ms">made daily</span></span>
         </h2>
+        <p class="fade-up mt-5 max-w-sm text-[15px] leading-relaxed text-canvas/55 lg:ml-[38%]" style="--d:300ms">
+          Brunch plates built on fresh bread, crispy bacon and our secret special sauces. Simple, balanced, and made to be finished.
+        </p>
       </div>
 
-      <div class="lg:col-span-5 lg:pl-10">
-        <p class="reveal-mask">
-          <span class="block font-sans text-sm leading-relaxed text-[#070707]/60 max-w-sm">
-            Quality ingredients, carefully prepared. Simple, balanced, and plated to be enjoyed — every single day, breakfast through brunch.
-          </span>
-        </p>
+      <div class="group relative self-start lg:self-end">
+        <a href={brand.igUrl} target="_blank" rel="noopener" class="link-cta relative z-10 font-mono text-[12px] tracking-wider">
+          VIEW FULL MENU <span class="arr" aria-hidden="true">→</span>
+        </a>
+        <!-- Receipt easter egg -->
+        <div class="pointer-events-none absolute -right-4 bottom-8 z-0 w-44 translate-y-10 rotate-6 bg-[#F7F5EF] p-4 font-mono text-[9px] leading-relaxed text-canvas opacity-0 shadow-[0_20px_40px_-10px_rgba(0,0,0,.35)] transition-all duration-700 ease-[cubic-bezier(.34,1.4,.64,1)] group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100" aria-hidden="true">
+          <p class="display text-center text-sm">FABUELA</p>
+          <div class="perf my-2"></div>
+          {menu.map((m) => (<p class="flex justify-between"><span>{m.name}</span><span>x1</span></p>))}
+          <div class="perf my-2"></div>
+          <p class="text-center">MADE FRESH · 🫰🏻</p>
+        </div>
+      </div>
+    </div>
 
-        <div class="reveal-mask mt-8 relative">
-          <div
-            class="group inline-flex items-center gap-3 font-mono text-[12px] tracking-[0.28em] text-[#070707] ul-link cursor-pointer"
-          >
-            <span>VIEW FULL MENU</span>
-            <span class="inline-block transition-transform duration-500 group-hover:translate-x-1.5">→</span>
-
-            <!-- Receipt easter egg -->
-            <div class="receipt-pop absolute -right-2 -top-2 translate-y-6 rotate-[5deg] opacity-0 pointer-events-none transition-all duration-500 ease-out">
-              <div class="w-[180px] bg-[#f4f0e8] text-[#070707] receipt-shadow rounded-t-[2px] px-3 pt-3 pb-2">
-                <div class="font-display font-black text-[11px] tracking-[0.03em] text-center">
-                  FABUELA
-                </div>
-                <div class="font-mono text-[7.5px] tracking-[0.3em] text-center text-[#070707]/55 mt-0.5">
-                  CAFE &amp; BRUNCH
-                </div>
-                <div class="border-t border-dashed border-[#070707]/30 my-2"></div>
-                <div class="font-mono text-[8px] tracking-[0.08em] text-[#070707]/70 leading-relaxed">
-                  EGGS BENEDICT × 2<br />
-                  GREENX JUICE × 2<br />
-                  FLAT WHITE × 2
-                </div>
-                <div class="border-t border-dashed border-[#070707]/30 my-2"></div>
-                <div class="font-mono text-[8px] flex justify-between text-[#070707]">
-                  <span>TOTAL</span><span>IQD 55,000</span>
-                </div>
+    <div class="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {menu.map((item, i) => (
+        <article
+          data-tilt
+          data-tilt-max="6"
+          class="tilt fade-up group relative flex min-h-[440px] flex-col border border-canvas bg-bone"
+          style={`--d:${i * 110}ms`}
+        >
+          <div class="flex items-center justify-between p-5 font-mono text-[11px]">
+            <span class="text-canvas/40">{item.index}</span>
+            <span class="text-canvas/40">{item.kind}</span>
+          </div>
+          <div class={`relative flex flex-1 items-center justify-center px-6 ${item.tall ? '-mt-24' : ''}`}>
+            <div data-parallax="-0.05" class="w-full">
+              <div class={`overflow-hidden shadow-[0_30px_50px_-20px_rgba(10,12,8,.45)] transition-transform duration-700 ease-[cubic-bezier(.34,1.4,.64,1)] group-hover:-translate-y-2 group-hover:scale-[1.03] ${item.tall ? 'aspect-[3/5] rounded-[999px_999px_20px_20px] mx-auto w-[74%]' : 'aspect-square rounded-full'}`}>
+                <img src={item.image} alt={item.alt} referrerpolicy="no-referrer" loading="lazy" class="h-full w-full object-cover" width="480" height="480" />
               </div>
-              <div class="receipt-zigzag w-[180px]"></div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cards -->
-    <div class="mt-14 sm:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-      {MENU_ITEMS.map((item) => (
-        <Card
-          variant="menu"
-          index={item.index}
-          name={item.name}
-          price={item.price}
-          image={item.image}
-          tag={item.tag}
-          rotate={item.rotate}
-        />
-      ))}
-    </div>
-
-    <!-- Marquee strip -->
-    <div class="mt-20 sm:mt-24 border-y border-[#070707]/15 overflow-hidden">
-      <div class="flex animate-marquee whitespace-nowrap py-4">
-        {Array.from({ length: 2 }).map(() => (
-          <div class="flex items-center">
-            {[
-              'BRUNCH ALL DAY',
-              'SPECIALTY COFFEE',
-              'FRESH EVERY MORNING',
-              'THREE CITIES',
-              'MADE FOR MOMENTS',
-            ].map((t) => (
-              <span class="flex items-center">
-                <span class="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] text-[#070707]/85 px-8">
-                  {t}
-                </span>
-                <span class="text-crema text-2xl sm:text-3xl">✦</span>
-              </span>
-            ))}
+          <div class="mt-4 flex items-end justify-between border-t border-canvas p-5">
+            <h3 class="display text-2xl">{item.name}</h3>
+            <span class="mask font-mono text-[11px]"><span style={`--d:${300 + i * 110}ms`}>{item.tag}</span></span>
           </div>
-        ))}
-      </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>
-
-<style>
-  .receipt-pop { transform-origin: top right; }
-  .group:hover .receipt-pop {
-    opacity: 1;
-    transform: translate(0, 0) rotate(-2deg);
-  }
-</style>
