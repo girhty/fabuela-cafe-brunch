@@ -5,7 +5,7 @@ export default defineConfig({
   base: '/fabuela-cafe-brunch/',
   output: 'static',
   site: 'https://fabuela-cafe-brunch.example.com',
-  integrations: [tailwind({ applyBaseStyles: false })],
+  integrations: [tailwind(),],
   build: {
     inlineStylesheets: 'auto',
   },
