@@ -1,0 +1,127 @@
+---
+const bg = 'https://lh3.googleusercontent.com/grass-cs/ACvplmPxCl2wbcTiOt1EU9p7unHlaXdn2UI9c-5Ed1APTiIxqW6fGybrldrh1mg74UIFk13te9KPmTdx19AV_4HGn3fdvsUQ2MTAAD3Uf6On-e1WWio_vO5Td5HE31Vz34B76YYTvQGYxYYP8gM3=w1200-h800-k-no';
+---
+<section id="order" data-surface="dark" class="relative bg-ink overflow-hidden">
+  <!-- BG image with parallax -->
+  <div class="absolute inset-0">
+    <img id="orderBg" src={bg} alt="" aria-hidden="true" class="w-full h-[120%] object-cover opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-b from-ink via-ink/70 to-ink"></div>
+  </div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 py-28 sm:py-40">
+    <!-- Headline -->
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-5">
+        <div class="mono text-[11px] tracking-[0.3em] text-white/45 uppercase">// Order Ahead</div>
+        <h2 class="display text-[12vw] sm:text-[7vw] lg:text-[4.6rem] text-white mt-4 leading-[0.95]">
+          <span class="line-mask"><span>COFFEE FOR</span></span>
+          <span class="line-mask"><span>RIGHT&nbsp;NOW.</span></span>
+        </h2>
+        <div class="mono text-[11px] tracking-[0.28em] uppercase text-white/45 mt-6">
+          We handle the craft. You handle the day.
+        </div>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9 lg:text-right">
+        <p class="text-sm leading-[1.9] text-white/60 max-w-md lg:ml-auto">
+          We work to one schedule: yours. Order ahead and your cup is poured to meet you, not to sit waiting.
+        </p>
+        <a href="#order" class="inline-flex items-center gap-3 mt-6 mono text-[11px] tracking-[0.3em] uppercase text-white group">
+          <span>Order right now</span>
+          <span class="transition-transform duration-500 group-hover:translate-x-1.5">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Printer scene -->
+    <div class="mt-20 sm:mt-28 relative max-w-3xl mx-auto">
+      <!-- Printer slot -->
+      <div class="relative mx-auto w-[320px] sm:w-[400px]">
+        <div class="h-14 rounded-t-md bg-gradient-to-b from-[#1a1a18] to-[#0d0d0c] border border-white/10 flex items-center justify-center">
+          <div class="mono text-[10px] tracking-[0.3em] text-white/30 uppercase">// FABUELA ORDER PRINTER · ONLINE</div>
+        </div>
+        <div class="h-3 bg-black mx-auto w-[92%] rounded-b-sm relative">
+          <div class="absolute inset-x-6 top-0 h-1 bg-black"></div>
+        </div>
+        <!-- Slot lip -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] h-[6px] bg-black shadow-[0_0_20px_rgba(0,0,0,0.8)]"></div>
+      </div>
+
+      <!-- Receipt -->
+      <div id="receiptClip" class="mx-auto w-[300px] sm:w-[360px] -mt-1 overflow-hidden">
+        <div id="receipt" class="bg-[#f7f5ef] text-ink px-6 py-6 font-mono text-[11px] leading-[1.7] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] origin-top">
+          <div class="text-center display text-2xl tracking-tight">FABUELA</div>
+          <div class="text-center text-ink/45 tracking-[0.3em] text-[10px] mt-1">CAFE &amp; BRUNCH</div>
+
+          <div class="border-t border-dashed border-ink/25 my-4"></div>
+
+          <div class="flex justify-center">
+            <svg viewBox="0 0 60 60" class="w-12 h-12">
+              <path d="M12 18 h30 v20 a12 12 0 0 1 -12 12 h-6 a12 12 0 0 1 -12 -12 z" fill="none" stroke="#070707" stroke-width="2" />
+              <path d="M42 22 q10 0 10 10 t-10 10" fill="none" stroke="#070707" stroke-width="2" />
+              <path d="M22 12 q2 -4 0 -8 M30 12 q2 -4 0 -8 M38 12 q2 -4 0 -8" stroke="#070707" stroke-width="1.4" fill="none" />
+            </svg>
+          </div>
+
+          <div class="text-center mt-3 text-ink/70">GOOD COFFEE. MADE FOR YOUR DAY.</div>
+
+          <div class="border-t border-dashed border-ink/25 my-4"></div>
+
+          <div class="flex justify-between"><span class="text-ink/50">ORDER</span><span>#00025</span></div>
+          <div class="flex justify-between"><span class="text-ink/50">DATE</span><span>21/05/2026</span></div>
+          <div class="flex justify-between"><span class="text-ink/50">TIME</span><span>12:45</span></div>
+
+          <div class="border-t border-dashed border-ink/25 my-4"></div>
+
+          <div class="text-center text-ink/60">THANK YOU FOR CHOOSING US. SEE YOU SOON!</div>
+
+          <div class="border-t border-dashed border-ink/25 my-4"></div>
+
+          <div class="bg-ink text-cream p-4 my-2">
+            <div class="display text-lg tracking-tight">SKIP THE LINE. ORDER AHEAD.</div>
+            <div class="tracking-[0.2em] text-[10px] mt-2 text-cream/70 uppercase">Save time. Get your coffee faster.</div>
+            <a href="#order" class="inline-block mt-3 bg-amber text-ink px-3 py-1.5 text-[10px] tracking-[0.28em] uppercase">Order Now →</a>
+          </div>
+
+          <div class="border-t border-dashed border-ink/25 my-4"></div>
+
+          <!-- Barcode -->
+          <div class="flex justify-center items-end h-10 gap-[2px]">
+            {Array.from({ length: 42 }).map((_, i) => (
+              <span class="bg-ink block" style={`width:${(i % 3) + 1}px; height:${(i % 4 === 0) ? '100%' : '78%'};`}></span>
+            ))}
+          </div>
+          <div class="text-center tracking-[0.4em] text-[9px] text-ink/50 mt-2">FABUELA · CAFE.COFFEE</div>
+
+          <!-- Torn bottom -->
+          <div class="absolute left-0 right-0 -bottom-2 h-3" style="mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2212%22%3E%3Cpath d=%22M0 0 L4 12 L8 0 L12 12 L16 0 Z%22 fill=%22%23f7f5ef%22/%3E%3C/svg%3E'); -webkit-mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2212%22%3E%3Cpath d=%22M0 0 L4 12 L8 0 L12 12 L16 0 Z%22 fill=%22%23f7f5ef%22/%3E%3C/svg%3E'); background:transparent;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const bg = document.getElementById('orderBg');
+    const wrap = document.getElementById('receiptClip');
+    const receipt = document.getElementById('receipt');
+    if (!wrap || !receipt) return;
+
+    const update = () => {
+      const r = wrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.max(0, Math.min(1, (vh * 0.9 - r.top) / (vh * 0.7)));
+      const stepped = Math.round(progress * 24) / 24;
+      wrap.style.maxHeight = (stepped * receipt.scrollHeight) + 'px';
+
+      if (bg) {
+        const br = bg.parentElement.getBoundingClientRect();
+        const t = (vh - br.top) / (vh + br.height);
+        bg.style.transform = `translateY(${(t - 0.5) * -40}px)`;
+      }
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>

@@ -1,0 +1,127 @@
+---
+const items = [
+  {
+    i: '01',
+    name: 'ESPRESSO',
+    price: '$2.50',
+    note: 'DOUBLE / DRY',
+    img: 'https://lh3.googleusercontent.com/grass-cs/ACvplmOfKML00wrMq-qOBh3ob0xwexT6W-CeP25fskIgDE1c63Bzno6eHU-6au_tPrYKsIx0FBNteStLMprlNBFws7eMZA3GzcC6KFrT_UfXU0Trr9xn28EBYHLJfxcUq1lTADmfgtEdrCPvq1kz=w600-h800-k-no',
+  },
+  {
+    i: '02',
+    name: 'LATTE',
+    price: '$4.20',
+    note: 'ROSETTA / OAT',
+    img: 'https://lh3.googleusercontent.com/grass-cs/ACvplmMNLQFSBHa5QE5H67Wl7GIvH92hfSwdMBq1YQQFFs_miK75wo5_ivRFzx1htEc36TbGuT8pmnFhvK0KJb63to5RbkPDSaaqzYpm9CZki60Lt_Nqe2Wkdk39VZPrXwXG21D_xIABdIcUQTk=w600-h800-k-no',
+  },
+  {
+    i: '03',
+    name: 'ICED COFFEE',
+    price: '$4.50',
+    note: 'COLD BREW / ICE',
+    img: 'https://lh3.googleusercontent.com/grass-cs/ACvplmMiVGuyRzM99jjTFMMCIvKBRApl_AezNT49x0cHUIYZaVF-iikTfdL8prOLj-7VtIhJjk8m2OqdGTxJSochYFB4shopLSeMG5F-uRfsiyds4A24dzZeIynVQdrp-0SBsDTOaoZvV8DFZAoX=w600-h800-k-no',
+  },
+  {
+    i: '04',
+    name: 'CINNAMON ROLL',
+    price: '$3.80',
+    note: 'FRESH / GLAZED',
+    img: 'https://lh3.googleusercontent.com/grass-cs/ACvplmPxCl2wbcTiOt1EU9p7unHlaXdn2UI9c-5Ed1APTiIxqW6fGybrldrh1mg74UIFk13te9KPmTdx19AV_4HGn3fdvsUQ2MTAAD3Uf6On-e1WWio_vO5Td5HE31Vz34B76YYTvQGYxYYP8gM3=w600-h800-k-no',
+  },
+];
+---
+<section id="menu" data-surface="light" class="relative bg-cream text-ink overflow-hidden">
+  <!-- Oversized background swirl (typographic) -->
+  <div aria-hidden="true" class="pointer-events-none absolute -top-24 -right-24 select-none">
+    <div class="display text-[38vw] leading-none text-ink/[0.035] whitespace-nowrap">FABUELA</div>
+  </div>
+  <div aria-hidden="true" class="pointer-events-none absolute -bottom-32 -left-24 select-none">
+    <div class="display text-[30vw] leading-none text-ink/[0.03] whitespace-nowrap">BRUNCH</div>
+  </div>
+
+  <div class="relative max-w-[1440px] mx-auto px-6 sm:px-10 py-24 sm:py-32">
+    <div class="grid lg:grid-cols-12 gap-8 items-end">
+      <div class="lg:col-span-7">
+        <div class="mono text-[11px] tracking-[0.3em] text-ink/40 uppercase">// Our Menu</div>
+        <h2 class="display text-[12vw] sm:text-[8vw] lg:text-[5.5rem] xl:text-[6.5rem] mt-4 text-ink">
+          <span class="line-mask"><span>FAVORITES</span></span>
+          <span class="line-mask"><span>MADE&nbsp;DAILY</span></span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 flex flex-col lg:items-end gap-6">
+        <p class="max-w-sm text-sm leading-[1.8] text-ink/55 lg:text-right">
+          Quality ingredients, carefully prepared. Simple, balanced and made to be enjoyed — today, and again tomorrow.
+        </p>
+        <a href="#order" id="viewMenuLink" class="relative inline-flex items-center gap-3 mono text-[11px] tracking-[0.3em] uppercase text-ink">
+          <span>View Full Menu</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      {items.map((it, idx) => (
+        <article
+          class="menu-card group relative border border-ink/90 bg-cream aspect-[4/5] flex flex-col justify-between overflow-visible"
+          data-tilt="6"
+          data-parallax
+        >
+          <div class="flex justify-between items-start p-5">
+            <span class="mono text-[11px] tracking-[0.28em] text-ink/45">{it.i}</span>
+            <span class="mono text-[10px] tracking-[0.22em] text-ink/40">{it.note}</span>
+          </div>
+
+          <div class="relative flex-1 flex items-center justify-center overflow-visible">
+            <div class="relative w-[78%] aspect-square overflow-hidden rounded-full border border-ink/15">
+              <img src={it.img} alt={it.name} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1200ms] ease-out" />
+            </div>
+          </div>
+
+          <div class="p-5 flex items-end justify-between border-t border-ink/15">
+            <h3 class="display text-xl sm:text-2xl tracking-tight">{it.name}</h3>
+            <span class="mono text-sm text-ink/80 tabular-nums">{it.price}</span>
+          </div>
+
+          <!-- Floating hover receipt card -->
+          <div class="absolute inset-x-3 -bottom-3 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 pointer-events-none">
+            <div class="bg-ink text-cream mono text-[10px] tracking-[0.22em] uppercase p-3 flex justify-between">
+              <span>Add to order</span>
+              <span>+</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Receipt easter egg -->
+    <div id="menuReceipt" class="pointer-events-none fixed bottom-8 right-8 z-30 transition-all duration-500 opacity-0 translate-y-8 rotate-[-3deg]">
+      <div class="bg-white text-ink shadow-2xl p-5 w-64 font-mono text-[10px] leading-[1.7] border border-ink/10">
+        <div class="text-center display text-lg text-ink tracking-tight">FABUELA</div>
+        <div class="text-center text-ink/40 tracking-[0.25em] mt-1">BRUNCH · ERBIL</div>
+        <div class="border-t border-dashed border-ink/25 my-3"></div>
+        <div class="flex justify-between"><span>ESPRESSO</span><span>$2.50</span></div>
+        <div class="flex justify-between"><span>LATTE</span><span>$4.20</span></div>
+        <div class="flex justify-between"><span>ICED COFFEE</span><span>$4.50</span></div>
+        <div class="flex justify-between"><span>CINNAMON ROLL</span><span>$3.80</span></div>
+        <div class="border-t border-dashed border-ink/25 my-3"></div>
+        <div class="flex justify-between font-semibold"><span>TOTAL</span><span>$15.00</span></div>
+        <div class="text-center text-ink/35 tracking-[0.25em] mt-3">THANK YOU</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const link = document.getElementById('viewMenuLink');
+    const receipt = document.getElementById('menuReceipt');
+    if (link && receipt) {
+      link.addEventListener('mouseenter', () => {
+        receipt.classList.remove('opacity-0', 'translate-y-8');
+      });
+      link.addEventListener('mouseleave', () => {
+        receipt.classList.add('opacity-0', 'translate-y-8');
+      });
+    }
+  })();
+</script>

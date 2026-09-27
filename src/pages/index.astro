@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Preloader from '../components/Preloader.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Menu from '../components/Menu.astro';
+import Locations from '../components/Locations.astro';
+import Philosophy from '../components/Philosophy.astro';
+import Order from '../components/Order.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
+import Reviews from '../components/Reviews.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="Fabuela Cafe & Brunch | فابوێلا کافێ — The First Brunch Café in Iraq"
+  description="Fabuela Cafe & Brunch — specialty coffee, slow hours, and thoughtful plates in Erbil, Sulaymaniyah and Baghdad. Rated 4.8 on Google with 887 reviews."
+>
+  <Preloader />
+  <Header />
+  <main>
+    <Hero />
+    <Menu />
+    <Locations />
+    <Philosophy />
+    <Order />
+    <InstagramFeed />
+    <Reviews />
+  </main>
+  <Footer />
+</Layout>

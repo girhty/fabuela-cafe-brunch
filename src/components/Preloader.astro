@@ -1,0 +1,59 @@
+<div id="preloader" aria-hidden="true" class="fixed inset-0 z-[100] bg-ink flex flex-col justify-between p-6 sm:p-10">
+  <div class="flex justify-between items-start">
+    <div class="mono text-[10px] sm:text-xs tracking-[0.25em] text-white/40">// NOW BREWING</div>
+    <div class="mono text-[10px] sm:text-xs tracking-[0.25em] text-white/40">EST. 2023 — IRAQ</div>
+  </div>
+
+  <div class="flex flex-col items-center justify-center gap-6">
+    <div id="preCount" class="display text-[22vw] sm:text-[14vw] leading-none text-white tabular-nums">000</div>
+    <div class="mono text-[10px] tracking-[0.35em] text-white/40">GRINDING · POURING · PLATING</div>
+  </div>
+
+  <div class="flex justify-between items-end">
+    <div>
+      <div class="display text-2xl sm:text-3xl text-white tracking-tight">FABUELA</div>
+      <div class="mono text-[10px] text-white/40 tracking-[0.3em] mt-1">CAFE &amp; BRUNCH</div>
+    </div>
+    <svg viewBox="0 0 48 64" class="w-14 h-18 sm:w-16 sm:h-20 text-white" fill="none">
+      <defs>
+        <linearGradient id="cupGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#2C1A11" />
+          <stop offset="55%" stop-color="#6E3E22" />
+          <stop offset="100%" stop-color="#C69B6E" />
+        </linearGradient>
+        <clipPath id="cupClip">
+          <polygon points="8,12 40,12 37,54 11,54" />
+        </clipPath>
+      </defs>
+      <polygon points="8,12 40,12 37,54 11,54" stroke="currentColor" stroke-width="1.5" />
+      <rect id="cupLiquid" x="0" y="64" width="48" height="64" fill="url(#cupGrad)" clip-path="url(#cupClip)" />
+      <path d="M40 22 q8 0 8 8 t-8 8" stroke="currentColor" stroke-width="1.5" fill="none" />
+    </svg>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const p = document.getElementById('preloader');
+    if (!p) return;
+    document.body.classList.add('no-scroll');
+    const counter = document.getElementById('preCount');
+    const liquid = document.getElementById('cupLiquid');
+    let v = 0;
+    const target = 100;
+    const tick = () => {
+      v += Math.max(1, Math.round((target - v) * 0.06));
+      if (v > target) v = target;
+      counter.textContent = String(v).padStart(3, '0');
+      if (liquid) liquid.setAttribute('y', String(64 - (v / 100) * 52));
+      if (v < target) return requestAnimationFrame(() => setTimeout(tick, 22));
+      setTimeout(() => {
+        p.style.transition = 'clip-path 1s cubic-bezier(0.83,0,0.17,1)';
+        p.style.clipPath = 'inset(100% 0 0 0)';
+        document.body.classList.remove('no-scroll');
+        setTimeout(() => p.remove(), 1200);
+      }, 480);
+    };
+    setTimeout(tick, 300);
+  })();
+</script>
