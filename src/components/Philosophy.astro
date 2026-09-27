@@ -1,61 +1,85 @@
 ---
-const cup = 'https://lh3.googleusercontent.com/grass-cs/ACvplmMiVGuyRzM99jjTFMMCIvKBRApl_AezNT49x0cHUIYZaVF-iikTfdL8prOLj-7VtIhJjk8m2OqdGTxJSochYFB4shopLSeMG5F-uRfsiyds4A24dzZeIynVQdrp-0SBsDTOaoZvV8DFZAoX=w600-h800-k-no';
-const beans = Array.from({ length: 14 });
+const claims = ['GOOD BRUNCH.', 'NO CEREMONY.', 'NO WAITING.'];
 ---
-<section id="story" data-surface="dark" class="relative bg-ink overflow-hidden noise">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[70vw] h-[70vw] rounded-full blur-[180px] opacity-[0.22]" style="background: radial-gradient(circle, #6E3E22 0%, transparent 65%);"></div>
-  </div>
 
-  <div class="absolute inset-0 philosophy-scrim pointer-events-none"></div>
+<section
+  id="philosophy"
+  data-theme="dark"
+  class="relative bg-roast py-24 sm:py-32 lg:py-40 overflow-hidden grain"
+>
+  <div class="ambient-liquid" aria-hidden="true" style="opacity:.7"></div>
+  <div
+    class="pointer-events-none absolute inset-0 z-[1]"
+    style="background: linear-gradient(180deg, rgba(7,7,7,0.75) 0%, transparent 35%, transparent 65%, rgba(7,7,7,0.75) 100%);"
+    aria-hidden="true"
+  ></div>
 
-  <!-- Drifting beans -->
-  <div class="absolute inset-0 pointer-events-none">
-    {beans.map((_, i) => {
-      const left = (i * 37) % 100;
-      const top = (i * 61) % 100;
-      const sz = 12 + (i % 5) * 8;
-      const delay = (i * 1.3).toFixed(1);
-      return (
-        <div class="absolute animate-drift" style={`left:${left}%; top:${top}%; width:${sz}px; height:${sz * 1.5}px; animation-delay:-${delay}s; opacity:${0.12 + (i % 4) * 0.05};`}>
-          <svg viewBox="0 0 20 30" class="w-full h-full">
-            <ellipse cx="10" cy="15" rx="8" ry="14" fill="#C69B6E" />
-            <path d="M10 2 Q6 15 10 28" stroke="#2C1A11" stroke-width="1.4" fill="none" />
-          </svg>
-        </div>
-      );
-    })}
-  </div>
-
-  <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 py-28 sm:py-40 min-h-[100vh] flex flex-col justify-between">
-    <h2 class="display text-[10vw] sm:text-[6.5vw] lg:text-[5rem] xl:text-[5.8rem] text-white max-w-[16ch] leading-[0.95]">
-      <span class="line-mask"><span>THE CITY NEVER STOPS.</span></span>
-      <span class="line-mask"><span class="text-white/45">YOUR COFFEE</span></span>
-      <span class="line-mask"><span class="text-white/45">SHOULDN'T SLOW</span></span>
-      <span class="line-mask"><span class="text-white/45">YOU DOWN.</span></span>
+  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
+    <!-- Top headline -->
+    <h2 class="font-display font-black leading-[0.9] tracking-[-0.045em] text-white text-[clamp(2rem,6vw,5.2rem)] max-w-[20ch]">
+      <span class="reveal-mask block"><span>THE CITY NEVER STOPS.</span></span>
+      <span class="reveal-mask block">
+        <span>YOUR BRUNCH</span>
+        <span class="script-wipe font-script font-bold text-crema ml-3 align-baseline tracking-normal text-[0.85em]"
+          >shouldn’t</span
+        >
+      </span>
+      <span class="reveal-mask block"><span>SLOW YOU DOWN.</span></span>
     </h2>
 
-    <!-- Floating cup -->
-    <div class="my-16 flex justify-center">
-      <div class="relative w-40 sm:w-56" data-tilt="12">
-        <div class="absolute inset-0 -blur-3xl opacity-40 rounded-full" style="background: radial-gradient(circle, #C69B6E, transparent 70%);"></div>
-        <div class="relative aspect-[3/4] overflow-hidden rounded-sm border border-white/10">
-          <img src={cup} alt="Fabuela iced coffee" loading="lazy" class="w-full h-full object-cover" />
-        </div>
+    <!-- Middle floating cup visual -->
+    <div class="relative my-20 sm:my-24 flex items-center justify-center">
+      <div class="relative" data-tilt="5">
+        <div class="absolute -inset-10 rounded-full" style="background: radial-gradient(closest-side, rgba(213,140,61,0.28), transparent 70%);" aria-hidden="true"></div>
+        <img
+          src="https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/801304995_17944352034319753_3473979918832957175_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=lOCgKyVIN_MQ7kNvwFq-P21&_nc_oc=AdrisQGRnp7CBRQXT2C1baXch8QVAcss5DhPiUUD20xgLxV-etUVFqJFbJTqe0P37cw&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=894QDhTe_WSwFhcRmKJ6Dw&_nc_ss=79a8c&oh=00_AQK_umYYuAyr8qVmc3ZLEkMMLwaqxIc6zrOoJB_D8gdjVw&oe=6ABF2A0B"
+          alt="Fabuela morning table"
+          referrerpolicy="no-referrer"
+          loading="lazy"
+          class="relative w-[220px] sm:w-[320px] lg:w-[380px] h-auto rounded-full object-cover aspect-square border border-white/10 shadow-2xl"
+        />
+
+        <!-- Drifting beans -->
+        {[
+          { top: '-12%', left: '8%', s: 26, delay: '0s' },
+          { top: '14%', right: '4%', s: 18, delay: '1.2s' },
+          { bottom: '-6%', left: '14%', s: 22, delay: '2s' },
+          { top: '40%', left: '-8%', s: 14, delay: '.6s' },
+          { bottom: '6%', right: '10%', s: 20, delay: '1.8s' },
+        ].map((b) => (
+          <span
+            class="absolute animate-drift-slow"
+            style={`${b.top ? 'top:' + b.top + ';' : ''}${b.bottom ? 'bottom:' + b.bottom + ';' : ''}${b.left ? 'left:' + b.left + ';' : ''}${b.right ? 'right:' + b.right + ';' : ''}width:${b.s}px;height:${b.s}px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #C69B6E 0%, #6E3E22 55%, #2C1A11 100%);box-shadow:0 10px 24px rgba(0,0,0,.5);animation-delay:${b.delay};`}
+            aria-hidden="true"
+          ></span>
+        ))}
       </div>
     </div>
 
-    <div class="grid lg:grid-cols-12 gap-8 items-end">
-      <div class="lg:col-span-3">
-        <div class="mono text-[11px] tracking-[0.3em] text-white/45 uppercase">// Our Philosophy</div>
+    <!-- Bottom grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+      <div class="lg:col-span-3 reveal-mask">
+        <div class="font-mono text-[10.5px] tracking-[0.3em] text-white/55">
+          // OUR PHILOSOPHY
+        </div>
       </div>
-      <p class="lg:col-span-6 text-sm leading-[1.9] text-white/60 max-w-lg">
-        Stay for a conversation or leave with the cup in your hand — both work, neither takes any effort. Nothing here is rushed, and nothing keeps you longer than you meant to stay.
-      </p>
-      <div class="lg:col-span-3 lg:text-right mono text-[11px] tracking-[0.28em] uppercase text-white/80 leading-[2]">
-        <div>Good coffee.</div>
-        <div>No ceremony.</div>
-        <div>No waiting.</div>
+
+      <div class="lg:col-span-6 lg:pl-10">
+        <p class="reveal-mask">
+          <span class="block font-sans text-[15px] leading-relaxed text-white/65 max-w-xl">
+            Stay for a conversation or leave with the cup in your hand — both work, neither takes effort. Our kitchen opens at seven and closes at eleven. Nothing here is rushed, and nothing keeps you longer than you meant to stay.
+          </span>
+        </p>
+      </div>
+
+      <div class="lg:col-span-3 lg:text-right">
+        {claims.map((c, i) => (
+          <div class="reveal-mask" style={`transition-delay:${i * 120}ms`}>
+            <div class="font-mono text-[11.5px] tracking-[0.28em] text-white/85 uppercase py-1">
+              {c}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </div>

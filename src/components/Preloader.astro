@@ -1,59 +1,87 @@
-<div id="preloader" aria-hidden="true" class="fixed inset-0 z-[100] bg-ink flex flex-col justify-between p-6 sm:p-10">
-  <div class="flex justify-between items-start">
-    <div class="mono text-[10px] sm:text-xs tracking-[0.25em] text-white/40">// NOW BREWING</div>
-    <div class="mono text-[10px] sm:text-xs tracking-[0.25em] text-white/40">EST. 2023 — IRAQ</div>
-  </div>
+---
+import { BRAND } from '../data/site.ts';
+---
 
-  <div class="flex flex-col items-center justify-center gap-6">
-    <div id="preCount" class="display text-[22vw] sm:text-[14vw] leading-none text-white tabular-nums">000</div>
-    <div class="mono text-[10px] tracking-[0.35em] text-white/40">GRINDING · POURING · PLATING</div>
-  </div>
-
-  <div class="flex justify-between items-end">
-    <div>
-      <div class="display text-2xl sm:text-3xl text-white tracking-tight">FABUELA</div>
-      <div class="mono text-[10px] text-white/40 tracking-[0.3em] mt-1">CAFE &amp; BRUNCH</div>
+<div
+  id="preloader"
+  class="fixed inset-0 z-[100] bg-[#070707] text-white grain"
+  aria-hidden="true"
+>
+  <div class="relative h-full w-full px-6 sm:px-10 py-6 sm:py-8 flex flex-col justify-between">
+    <div class="flex items-center justify-between">
+      <div class="font-mono text-[10px] sm:text-[11px] tracking-[0.25em] text-white/55">
+        // NOW BREWING
+      </div>
+      <div class="font-mono text-[10px] tracking-[0.25em] text-white/35">
+        FABUELA · 07:00
+      </div>
     </div>
-    <svg viewBox="0 0 48 64" class="w-14 h-18 sm:w-16 sm:h-20 text-white" fill="none">
-      <defs>
-        <linearGradient id="cupGrad" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stop-color="#2C1A11" />
-          <stop offset="55%" stop-color="#6E3E22" />
-          <stop offset="100%" stop-color="#C69B6E" />
-        </linearGradient>
-        <clipPath id="cupClip">
-          <polygon points="8,12 40,12 37,54 11,54" />
-        </clipPath>
-      </defs>
-      <polygon points="8,12 40,12 37,54 11,54" stroke="currentColor" stroke-width="1.5" />
-      <rect id="cupLiquid" x="0" y="64" width="48" height="64" fill="url(#cupGrad)" clip-path="url(#cupClip)" />
-      <path d="M40 22 q8 0 8 8 t-8 8" stroke="currentColor" stroke-width="1.5" fill="none" />
-    </svg>
+
+    <div class="flex items-center justify-center">
+      <div
+        id="pre-count"
+        class="font-display font-black leading-[0.85] tracking-[-0.06em] tabular-nums text-[26vw] sm:text-[20vw] lg:text-[16rem]"
+      >
+        000
+      </div>
+    </div>
+
+    <div class="flex items-end justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img
+          src={BRAND.profilePic}
+          alt={BRAND.name}
+          referrerpolicy="no-referrer"
+          loading="eager"
+          class="h-10 w-10 rounded-full object-cover border border-white/20"
+        />
+        <div>
+          <div class="font-display font-black text-base sm:text-lg leading-none tracking-[-0.02em]">
+            FABUELA
+          </div>
+          <div class="font-mono text-[9px] tracking-[0.3em] text-white/40 mt-1">
+            CAFE &amp; BRUNCH
+          </div>
+        </div>
+      </div>
+
+      <div class="cup" aria-hidden="true">
+        <div class="cup-fill" id="pre-fill"></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script is:inline>
   (function () {
-    const p = document.getElementById('preloader');
-    if (!p) return;
-    document.body.classList.add('no-scroll');
-    const counter = document.getElementById('preCount');
-    const liquid = document.getElementById('cupLiquid');
+    const el = document.getElementById('preloader');
+    const countEl = document.getElementById('pre-count');
+    const fillEl = document.getElementById('pre-fill');
+    if (!el || !countEl || !fillEl) return;
+
     let v = 0;
     const target = 100;
-    const tick = () => {
-      v += Math.max(1, Math.round((target - v) * 0.06));
+    const step = () => {
+      v += Math.max(1, Math.round(Math.random() * 4));
       if (v > target) v = target;
-      counter.textContent = String(v).padStart(3, '0');
-      if (liquid) liquid.setAttribute('y', String(64 - (v / 100) * 52));
-      if (v < target) return requestAnimationFrame(() => setTimeout(tick, 22));
-      setTimeout(() => {
-        p.style.transition = 'clip-path 1s cubic-bezier(0.83,0,0.17,1)';
-        p.style.clipPath = 'inset(100% 0 0 0)';
-        document.body.classList.remove('no-scroll');
-        setTimeout(() => p.remove(), 1200);
-      }, 480);
+      countEl.textContent = String(v).padStart(3, '0');
+      fillEl.style.height = v + '%';
+      if (v < target) {
+        setTimeout(step, 24 + Math.random() * 40);
+      } else {
+        setTimeout(() => {
+          el.style.transition = 'clip-path 1.05s cubic-bezier(.76,0,.24,1)';
+          el.style.clipPath = 'inset(100% 0 0 0)';
+          document.body.style.overflow = '';
+          setTimeout(() => el.remove(), 1200);
+        }, 320);
+      }
     };
-    setTimeout(tick, 300);
+    document.body.style.overflow = 'hidden';
+    setTimeout(step, 220);
+
+    window.addEventListener('load', () => {
+      if (v < target) v = Math.max(v, target - 8);
+    });
   })();
 </script>

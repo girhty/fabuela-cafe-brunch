@@ -4,27 +4,55 @@ import Preloader from '../components/Preloader.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Menu from '../components/Menu.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
 import Locations from '../components/Locations.astro';
+import Reviews from '../components/Reviews.astro';
 import Philosophy from '../components/Philosophy.astro';
 import Order from '../components/Order.astro';
-import InstagramFeed from '../components/InstagramFeed.astro';
-import Reviews from '../components/Reviews.astro';
 import Footer from '../components/Footer.astro';
+import { BRAND } from '../data/site.ts';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: BRAND.name,
+  image: BRAND.profilePic,
+  servesCuisine: ['Brunch', 'Cafe', 'Middle Eastern'],
+  priceRange: 'IQD 5,000 – 25,000',
+  telephone: BRAND.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Empire Pearl P7',
+    addressLocality: 'Erbil',
+    addressRegion: 'Erbil Governorate',
+    postalCode: '44001',
+    addressCountry: 'IQ',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: BRAND.rating,
+    reviewCount: BRAND.reviewCount,
+  },
+  openingHours: 'Mo-Su 07:00-23:00',
+  sameAs: [BRAND.instagramUrl],
+};
 ---
-<Layout
-  title="Fabuela Cafe & Brunch | فابوێلا کافێ — The First Brunch Café in Iraq"
-  description="Fabuela Cafe & Brunch — specialty coffee, slow hours, and thoughtful plates in Erbil, Sulaymaniyah and Baghdad. Rated 4.8 on Google with 887 reviews."
->
+
+<Layout>
   <Preloader />
   <Header />
-  <main>
+
+  <main id="main">
     <Hero />
     <Menu />
+    <InstagramFeed />
     <Locations />
+    <Reviews />
     <Philosophy />
     <Order />
-    <InstagramFeed />
-    <Reviews />
   </main>
+
   <Footer />
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Layout>

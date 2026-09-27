@@ -1,44 +1,102 @@
 ---
-const columns = [
-  { heading: 'Shop', links: ['Coffee', 'Subscriptions', 'Merchandise'] },
-  { heading: 'Menu', links: ['Coffee', 'Non-Coffee', 'Food'] },
-  { heading: 'About Us', links: ['Our Story', 'Sourcing', 'Careers'] },
-];
-const branches = ['Erbil · Empire Pearl P7', 'Sulaymaniyah · Grand Boulevard', 'Baghdad · Mansur — Al Dawoodi'];
+import { BRAND, LOCATIONS } from '../data/site.ts';
 ---
-<footer data-surface="dark" class="relative bg-ink overflow-hidden noise">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80vw] h-[50vw] rounded-full blur-[180px] opacity-[0.15]" style="background: radial-gradient(circle, #6E3E22 0%, transparent 65%);"></div>
-  </div>
 
-  <div class="relative max-w-[1440px] mx-auto px-6 sm:px-10 py-20 sm:py-24">
+<footer
+  data-theme="dark"
+  class="relative bg-roast pt-24 sm:pt-28 pb-8 overflow-hidden grain"
+>
+  <div class="swirl" aria-hidden="true" style="opacity:.04"></div>
+
+  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
     <!-- Top row -->
-    <div class="grid lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
       <div class="lg:col-span-5">
-        <div class="display text-4xl sm:text-5xl text-white tracking-tight">
-          <span class="line-mask"><span>FABUELA.</span></span>
+        <div class="reveal-mask">
+          <div class="flex items-center gap-4">
+            <img
+              src={BRAND.profilePic}
+              alt={BRAND.name}
+              referrerpolicy="no-referrer"
+              loading="lazy"
+              class="h-12 w-12 rounded-full object-cover border border-white/15"
+            />
+            <div>
+              <div class="font-display font-black text-2xl tracking-[-0.03em] text-white leading-none">
+                FABUELA
+              </div>
+              <div class="font-mono text-[10px] tracking-[0.3em] text-white/45 mt-1.5">
+                CAFE &amp; BRUNCH · {BRAND.nameKu}
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="mono text-[10px] tracking-[0.3em] text-white/40 uppercase mt-3">
-          Coffee for right now. Made for your day.
-        </div>
+
+        <p class="reveal-mask mt-6 max-w-sm">
+          <span class="block font-sans text-[13.5px] leading-relaxed text-white/55">
+            {BRAND.tagline}
+          </span>
+        </p>
       </div>
 
-      <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-6">
-        {columns.map((c) => (
-          <div>
-            <div class="mono text-[10px] tracking-[0.3em] text-white/35 uppercase mb-4">{c.heading}</div>
-            <ul class="flex flex-col gap-2.5">
-              {c.links.map((l) => (
-                <li><a href="#" class="text-sm text-white/70 hover:text-white ulink">{l}</a></li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:pl-10">
         <div>
-          <div class="mono text-[10px] tracking-[0.3em] text-white/35 uppercase mb-4">Contact</div>
-          <ul class="flex flex-col gap-2.5">
-            <li><a href="mailto:hello@fabuela.iq" class="text-sm text-white/70 hover:text-white ulink">hello@fabuela.iq</a></li>
-            <li><a href="tel:+9647516244424" class="text-sm text-white/70 hover:text-white ulink">+964 751 624 4424</a></li>
+          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45">EXPLORE</div>
+          <ul class="mt-5 space-y-3">
+            {[
+              { l: 'BRUNCH MENU', h: '#menu' },
+              { l: 'INSTAGRAM', h: '#instagram' },
+              { l: 'REVIEWS', h: '#reviews' },
+            ].map((it) => (
+              <li>
+                <a href={it.h} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
+                  {it.l}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45">VISIT</div>
+          <ul class="mt-5 space-y-3">
+            {[
+              { l: 'OUR LOCATIONS', h: '#locations' },
+              { l: 'OUR STORY', h: '#philosophy' },
+              { l: 'ORDER ONLINE', h: '#order' },
+            ].map((it) => (
+              <li>
+                <a href={it.h} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
+                  {it.l}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45">CONTACT</div>
+          <ul class="mt-5 space-y-3">
+            <li>
+              <a href={BRAND.phoneHref} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
+                {BRAND.phone}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${BRAND.email}`} class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link">
+                {BRAND.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={BRAND.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono text-[11.5px] tracking-[0.22em] text-white/85 ul-link"
+              >
+                {BRAND.instagramHandle}
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -46,31 +104,72 @@ const branches = ['Erbil · Empire Pearl P7', 'Sulaymaniyah · Grand Boulevard',
 
     <!-- Locations row -->
     <div class="py-10 border-b border-white/10">
-      <div class="flex items-center gap-3 mono text-[10px] tracking-[0.3em] text-white/50 uppercase mb-5">
-        <span class="dot-pulse"></span>
-        <span>Our Locations</span>
+      <div class="reveal-mask mb-8">
+        <div class="flex items-center gap-3">
+          <span class="h-[6px] w-[6px] rounded-full bg-crema animate-pulse-dot"></span>
+          <div class="font-mono text-[10px] tracking-[0.3em] text-white/55">OUR LOCATIONS</div>
+        </div>
       </div>
-      <div class="flex flex-wrap gap-y-4 mono text-[11px] tracking-[0.2em] uppercase text-white/70">
-        {branches.map((b, i) => (
-          <>
-            <span class="pr-6">{b}</span>
-            {i < branches.length - 1 && <span class="hidden sm:inline-block w-px h-4 bg-white/15 mr-6" aria-hidden="true"></span>}
-            {i === branches.length - 1 && <span class="ml-auto text-white/50">Open Daily · 07:00 — 21:00</span>}
-          </>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8 lg:gap-y-0 lg:divide-x divide-white/10">
+        {LOCATIONS.map((loc, i) => (
+          <div class="lg:px-10 first:lg:pl-0">
+            <div class="font-mono text-[9.5px] tracking-[0.3em] text-crema/70">
+              0{i + 1}
+            </div>
+            <div class="font-display font-black text-lg tracking-[-0.01em] text-white mt-2">
+              {loc.city}
+            </div>
+            <div class="font-mono text-[11px] tracking-[0.16em] leading-relaxed text-white/55 mt-2">
+              {loc.lines.map((line) => <div>{line}</div>)}
+            </div>
+          </div>
         ))}
+        <div class="lg:px-10">
+          <div class="font-mono text-[9.5px] tracking-[0.3em] text-crema/70">HOURS</div>
+          <div class="font-display font-black text-lg tracking-[-0.01em] text-white mt-2">
+            OPEN DAILY
+          </div>
+          <div class="font-mono text-[11px] tracking-[0.16em] leading-relaxed text-white/55 mt-2">
+            <div>07:00 – 23:00</div>
+            <div>GMT+3</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Legal row -->
-    <div class="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mono text-[10px] tracking-[0.25em] uppercase text-white/40">
-      <div>© 2026 Fabuela Cafe &amp; Brunch.</div>
-      <div class="flex gap-6">
-        <a href="https://instagram.com/fabuela.iq" target="_blank" rel="noopener" class="ulink hover:text-white">Instagram</a>
-        <a href="https://tiktok.com" target="_blank" rel="noopener" class="ulink hover:text-white">TikTok</a>
+    <!-- Legal bar -->
+    <div class="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="font-mono text-[10px] tracking-[0.28em] text-white/40">
+        © {new Date().getFullYear()} FABUELA CAFE &amp; BRUNCH.
       </div>
-      <div class="flex gap-6">
-        <a href="#privacy" class="ulink hover:text-white">Privacy Policy</a>
-        <a href="#terms" class="ulink hover:text-white">Terms</a>
+      <div class="flex items-center gap-6">
+        <a
+          href={BRAND.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors"
+        >
+          INSTAGRAM
+        </a>
+        <span class="text-white/20">·</span>
+        <a
+          href="https://tiktok.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors"
+        >
+          TIKTOK
+        </a>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#privacy" class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors">
+          PRIVACY POLICY
+        </a>
+        <span class="text-white/20">/</span>
+        <a href="#terms" class="font-mono text-[10px] tracking-[0.28em] text-white/40 hover:text-white/80 transition-colors">
+          TERMS OF USE
+        </a>
       </div>
     </div>
   </div>

@@ -1,121 +1,159 @@
 ---
-const branches = [
-  { city: 'Erbil — HQ', line1: 'Empire Pearl P7', line2: 'Erbil, Kurdistan' },
-  { city: 'Sulaymaniyah', line1: 'Grand Boulevard', line2: 'Sulaymaniyah, KRI' },
-  { city: 'Baghdad', line1: 'Mansur — Al Dawoodi', line2: 'Baghdad, Iraq' },
-];
-const cupImage = 'https://lh3.googleusercontent.com/grass-cs/ACvplmMNLQFSBHa5QE5H67Wl7GIvH92hfSwdMBq1YQQFFs_miK75wo5_ivRFzx1htEc36TbGuT8pmnFhvK0KJb63to5RbkPDSaaqzYpm9CZki60Lt_Nqe2Wkdk39VZPrXwXG21D_xIABdIcUQTk=w600-h800-k-no';
+import { BRAND, LOCATIONS } from '../data/site.ts';
 ---
-<section id="locations" data-surface="light" class="relative bg-cream text-ink overflow-hidden">
-  <div class="relative max-w-[1440px] mx-auto px-6 sm:px-10 py-24 sm:py-32">
-    <div class="flex items-center gap-3 mono text-[11px] tracking-[0.3em] text-ink/60 uppercase">
-      <span class="dot-pulse" style="background:#B07A45"></span>
-      <span>Our Locations</span>
-    </div>
 
-    <div class="mt-12 grid lg:grid-cols-12 gap-12 items-center">
-      <!-- Branch list -->
-      <div class="lg:col-span-5 flex flex-col gap-10 order-2 lg:order-1">
-        <ul class="flex flex-col divide-y divide-ink/15 border-t border-b border-ink/15">
-          {branches.map((b, i) => (
-            <li class="reveal py-6 flex justify-between items-baseline gap-6" style={`transition-delay:${i * 90}ms`}>
-              <div>
-                <div class="display text-2xl sm:text-3xl tracking-tight">{b.city}</div>
-                <div class="mono text-[11px] tracking-[0.25em] text-ink/50 uppercase mt-1">{b.line1}</div>
-                <div class="mono text-[11px] tracking-[0.25em] text-ink/40 uppercase">{b.line2}</div>
-              </div>
-              <span class="mono text-[10px] tracking-[0.25em] text-ink/40">0{i + 1}</span>
-            </li>
-          ))}
-        </ul>
+<section
+  id="locations"
+  data-theme="light"
+  class="relative bg-bone text-[#070707] py-24 sm:py-32 lg:py-40 overflow-hidden"
+>
+  <div class="swirl" aria-hidden="true" style="transform: scaleX(-1);"></div>
 
-        <div class="flex items-end justify-between">
-          <div>
-            <div class="mono text-[10px] tracking-[0.3em] text-ink/40 uppercase">Open Daily</div>
-            <div class="display text-3xl sm:text-4xl mt-1 tracking-tight">07:00 — 21:00</div>
+  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- LEFT: info -->
+      <div class="lg:col-span-6 order-2 lg:order-1">
+        <div class="reveal-mask">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="h-[7px] w-[7px] rounded-full bg-crema animate-pulse-dot"></span>
+            <div class="font-mono text-[10.5px] tracking-[0.3em] text-[#070707]/55">
+              OUR LOCATIONS
+            </div>
           </div>
-          <a href="https://maps.google.com/?q=Fabuela+Cafe+Erbil" target="_blank" rel="noopener" class="mono text-[11px] tracking-[0.28em] uppercase text-ink/70 ulink">Map →</a>
+        </div>
+
+        <h2 class="font-display font-black leading-[0.9] tracking-[-0.045em] text-[#070707] text-[clamp(2rem,6.4vw,4.6rem)]">
+          <span class="reveal-mask block"><span>THREE CITIES.</span></span>
+          <span class="reveal-mask block"><span>ONE FABUELA.</span></span>
+        </h2>
+
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8">
+          {LOCATIONS.map((loc, i) => (
+            <div class="fade-up" style={`transition-delay:${i * 90}ms`}>
+              <div class="flex items-baseline gap-3">
+                <span class="font-mono text-[10px] tracking-[0.28em] text-crema2">
+                  0{i + 1}
+                </span>
+                <div class="font-display font-black text-xl tracking-[-0.02em] text-[#070707]">
+                  {loc.city}
+                </div>
+              </div>
+              <div class="mt-3 pl-[2.35rem] font-mono text-[11.5px] tracking-[0.1em] leading-relaxed text-[#070707]/65">
+                {loc.lines.map((line) => <div>{line}</div>)}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-14 flex flex-wrap items-end gap-x-12 gap-y-6 border-t border-[#070707]/15 pt-8">
+          <div>
+            <div class="font-mono text-[9.5px] tracking-[0.3em] text-[#070707]/45">OPEN DAILY</div>
+            <div class="font-mono text-[12px] tracking-[0.22em] text-[#070707] mt-1.5">
+              07:00 – 23:00
+            </div>
+          </div>
+          <div>
+            <div class="font-mono text-[9.5px] tracking-[0.3em] text-[#070707]/45">CALL</div>
+            <a
+              href={BRAND.phoneHref}
+              class="font-mono text-[12px] tracking-[0.22em] text-[#070707] mt-1.5 ul-link block"
+            >
+              {BRAND.phone}
+            </a>
+          </div>
+          <div>
+            <div class="font-mono text-[9.5px] tracking-[0.3em] text-[#070707]/45">EMAIL</div>
+            <a
+              href={`mailto:${BRAND.email}`}
+              class="font-mono text-[12px] tracking-[0.22em] text-[#070707] mt-1.5 ul-link block"
+            >
+              {BRAND.email}
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Clock dial -->
-      <div class="lg:col-span-7 order-1 lg:order-2">
-        <div id="dialWrap" class="relative mx-auto max-w-[560px] aspect-square">
+      <!-- RIGHT: clock dial centerpiece -->
+      <div class="lg:col-span-6 order-1 lg:order-2 flex items-center justify-center">
+        <div
+          class="relative w-full max-w-[520px] aspect-square"
+          data-tilt="7"
+        >
+          <!-- Dial SVG -->
           <svg viewBox="0 0 400 400" class="absolute inset-0 w-full h-full">
             <defs>
-              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#070707" stop-opacity="0.12" />
-                <stop offset="100%" stop-color="#070707" stop-opacity="0.02" />
-              </linearGradient>
+              <radialGradient id="dial-glow" cx="50%" cy="50%">
+                <stop offset="0%" stop-color="rgba(213,140,61,0.18)" />
+                <stop offset="100%" stop-color="rgba(213,140,61,0)" />
+              </radialGradient>
             </defs>
-            <circle cx="200" cy="200" r="180" fill="url(#ringGrad)" stroke="#070707" stroke-opacity="0.18" />
-            <circle cx="200" cy="200" r="150" fill="none" stroke="#070707" stroke-opacity="0.12" />
-            <circle cx="200" cy="200" r="60" fill="none" stroke="#070707" stroke-opacity="0.15" />
-            {Array.from({ length: 12 }).map((_, i) => {
-              const angle = (i / 12) * 360;
-              const rad = (angle * Math.PI) / 180;
-              const x1 = 200 + Math.sin(rad) * 160;
-              const y1 = 200 - Math.cos(rad) * 160;
-              const x2 = 200 + Math.sin(rad) * 150;
-              const y2 = 200 - Math.cos(rad) * 150;
-              const tx = 200 + Math.sin(rad) * 132;
-              const ty = 200 - Math.cos(rad) * 132;
+            <circle cx="200" cy="200" r="190" fill="url(#dial-glow)" />
+            <circle cx="200" cy="200" r="168" fill="none" stroke="#070707" stroke-opacity="0.85" stroke-width="1.2" />
+            <circle cx="200" cy="200" r="148" fill="none" stroke="#070707" stroke-opacity="0.12" stroke-width="1" stroke-dasharray="2 4" />
+            <!-- Tick marks -->
+            {Array.from({ length: 60 }).map((_, i) => {
+              const major = i % 5 === 0;
+              const angle = (i / 60) * 360;
               return (
-                <>
-                  <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#070707" stroke-opacity="0.6" stroke-width="1" />
-                  <text x={tx} y={ty + 4} text-anchor="middle" fill="#070707" fill-opacity="0.5" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;">
-                    {String(i === 0 ? 12 : i).padStart(2, '0')}
-                  </text>
-                </>
+                <line
+                  x1="200"
+                  y1="32"
+                  x2="200"
+                  y2={major ? 46 : 40}
+                  stroke="#070707"
+                  stroke-opacity={major ? 0.85 : 0.3}
+                  stroke-width={major ? 1.4 : 1}
+                  transform={`rotate(${angle} 200 200)`}
+                />
               );
             })}
+            <!-- Hours numerals -->
+            {[
+              { n: '07', x: 200, y: 62 },
+              { n: '09', x: 322, y: 118 },
+              { n: '12', x: 335, y: 205 },
+              { n: '15', x: 318, y: 288 },
+              { n: '18', x: 200, y: 348 },
+              { n: '21', x: 82, y: 288 },
+              { n: '23', x: 65, y: 205 },
+            ].map((h) => (
+              <text
+                x={h.x}
+                y={h.y}
+                text-anchor="middle"
+                font-family="JetBrains Mono, monospace"
+                font-size="10"
+                letter-spacing="2"
+                fill="#070707"
+                fill-opacity="0.65"
+              >
+                {h.n}
+              </text>
+            ))}
           </svg>
 
-          <!-- Center rotating cup -->
-          <div id="dialCup" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[38%] aspect-[3/4] transition-transform duration-300"
-               data-tilt="14">
-            <div class="relative w-full h-full overflow-hidden rounded-sm">
-              <img src={cupImage} alt="Fabuela signature iced drink" loading="lazy" class="w-full h-full object-cover" />
-            </div>
-            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 mono text-[10px] tracking-[0.28em] uppercase text-ink/55 whitespace-nowrap">
-              // Signature Iced
+          <!-- Center cup -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="relative animate-drift-slow">
+              <img
+                src="https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/814768822_17945634477319753_8327829479757198532_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=qgvjn_5DZq8Q7kNvwHcz16z&_nc_oc=Ado1LmBZvGsaAqCpQaKDhyVa5gUGAUfk_ZAUtNBGAmZGYebttjm80dJ61eUYMjbEp-M&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=894QDhTe_WSwFhcRmKJ6Dw&_nc_ss=79a8c&oh=00_AQIJrkrTDWjG2WxtwlEeC8Jdmfs0stzv-0xlLYofce2zUA&oe=6ABF28C9"
+                alt="Fabuela iced drink"
+                referrerpolicy="no-referrer"
+                loading="lazy"
+                class="w-40 sm:w-52 lg:w-56 h-auto rounded-full object-cover aspect-square border-4 border-bone shadow-xl"
+              />
             </div>
           </div>
 
-          <!-- Amber pulse marker -->
-          <div class="absolute top-[6%] right-[24%] flex items-center gap-2">
-            <span class="dot-pulse"></span>
-            <span class="mono text-[10px] tracking-[0.25em] uppercase text-ink/45">Erbil</span>
+          <!-- Corner labels -->
+          <div class="absolute top-0 left-0 font-mono text-[9.5px] tracking-[0.3em] text-[#070707]/45">
+            // ERBIL · LOCAL TIME
           </div>
-          <div class="absolute bottom-[16%] left-[8%] flex items-center gap-2">
-            <span class="dot-pulse" style="background:#B07A45"></span>
-            <span class="mono text-[10px] tracking-[0.25em] uppercase text-ink/45">Baghdad</span>
+          <div class="absolute bottom-0 right-0 font-mono text-[9.5px] tracking-[0.3em] text-[#070707]/45 text-right">
+            DIAL #01 · GMT+3
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script is:inline>
-  (function () {
-    const cup = document.getElementById('dialCup');
-    const wrap = document.getElementById('dialWrap');
-    if (!cup || !wrap) return;
-    let raf;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        const r = wrap.getBoundingClientRect();
-        const center = window.innerHeight / 2;
-        const t = (center - r.top - r.height / 2) / r.height;
-        const rot = Math.max(-38, Math.min(38, t * 38));
-        cup.style.setProperty('--rot', rot + 'deg');
-        if (!cup.matches(':hover')) cup.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
-        raf = null;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-</script>

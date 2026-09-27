@@ -1,40 +1,46 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
-        ink: '#070707',
+        roast: '#070707',
         surface: '#171715',
-        cream: '#F1F1EF',
-        creamDark: '#E7E5E3',
-        amber: '#D58C3D',
-        amberDeep: '#B07A45',
-        roast: '#6E3E22',
-        crema: '#C69B6E',
+        surface2: '#0F0E0C',
+        crema: '#D58C3D',
+        crema2: '#B07A45',
+        bone: '#F1F1EF',
+        bone2: '#E7E5E3',
+        ember: '#6E3E22',
       },
       fontFamily: {
-        display: ['Anton', 'Impact', 'sans-serif'],
+        display: ['Archivo', 'system-ui', 'sans-serif'],
         script: ['Caveat', 'cursive'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
-        tightest: '-0.03em',
+        'xtight': '-0.03em',
+        'tighter2': '-0.05em',
       },
       animation: {
         'pulse-dot': 'pulseDot 1.8s ease-in-out infinite',
-        'spin-slow': 'spin 40s linear infinite',
-        'drift': 'drift 18s ease-in-out infinite',
+        'drift-slow': 'driftSlow 18s ease-in-out infinite',
+        'spin-slow': 'spin 60s linear infinite',
+        'marquee': 'marquee 40s linear infinite',
       },
       keyframes: {
         pulseDot: {
-          '0%, 100%': { opacity: '0.35', transform: 'scale(0.85)' },
-          '50%': { opacity: '1', transform: 'scale(1.15)' },
+          '0%, 100%': { opacity: '1', boxShadow: '0 0 0 0 rgba(213,140,61,0.6)' },
+          '50%': { opacity: '0.85', boxShadow: '0 0 0 8px rgba(213,140,61,0)' },
         },
-        drift: {
-          '0%, 100%': { transform: 'translate3d(0,0,0) rotate(0deg)' },
-          '50%': { transform: 'translate3d(0,-14px,0) rotate(6deg)' },
+        driftSlow: {
+          '0%, 100%': { transform: 'translateY(0px) translateX(0px) rotate(0deg)' },
+          '50%': { transform: 'translateY(-14px) translateX(8px) rotate(6deg)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

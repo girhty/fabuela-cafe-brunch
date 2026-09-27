@@ -1,86 +1,94 @@
 ---
-const reviews = [
-  {
-    name: 'Wandering_woman',
-    rating: 5,
-    text: 'I ordered the French toast and the Korean toast through delivery apps and was so impressed I decided to face the midday Erbil heat and come for breakfast. After a joyous eggs benedict and GreenX juice, Fabuela is going straight to my favorites.',
-    initials: 'WW',
-  },
-  {
-    name: 'Amina A.',
-    rating: 5,
-    text: 'This place looks like any other cafe but once you enter you\u2019ll feel the difference. The atmosphere is nice and calm and the staff are very welcoming. The food was on point and desserts were fresh and delicious. Well worth it!',
-    initials: 'AA',
-  },
-  {
-    name: 'Scalpel and Spoon',
-    rating: 4,
-    text: 'Delicious overall. The portion-to-price ratio isn\u2019t exactly proportional, but the great taste makes up for it. Feels more like a brunch menu than a full main meal — and the bread they use is absolutely delicious.',
-    initials: 'SS',
-  },
+import { BRAND, REVIEWS } from '../data/site.ts';
+const counts = [
+  { label: 'GOOGLE', value: BRAND.rating.toFixed(1) },
+  { label: 'REVIEWS', value: BRAND.reviewCount.toString() },
+  { label: 'CITIES', value: '03' },
+  { label: 'SINCE', value: '2019' },
 ];
 ---
-<section id="reviews" data-surface="dark" class="relative bg-ink overflow-hidden noise">
-  <div class="relative max-w-[1440px] mx-auto px-6 sm:px-10 py-24 sm:py-32">
-    <div class="grid lg:grid-cols-12 gap-10 items-end">
+
+<section
+  id="reviews"
+  data-theme="dark"
+  class="relative bg-roast py-24 sm:py-32 lg:py-40 overflow-hidden grain"
+>
+  <div class="relative z-10 px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto">
+    <!-- Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
       <div class="lg:col-span-7">
-        <div class="mono text-[11px] tracking-[0.3em] text-white/45 uppercase">// What people say</div>
-        <h2 class="display text-[12vw] sm:text-[8vw] lg:text-[5.5rem] text-white mt-4 leading-[0.95]">
-          <span class="line-mask"><span>GOOGLE</span></span>
-          <span class="line-mask"><span>REVIEWS.</span></span>
+        <div class="reveal-mask">
+          <div class="font-mono text-[10.5px] tracking-[0.3em] text-white/55 mb-6">
+            // LOVED BY 887 GUESTS
+          </div>
+        </div>
+        <h2 class="font-display font-black leading-[0.9] tracking-[-0.045em] text-white text-[clamp(2rem,6.4vw,4.8rem)]">
+          <span class="reveal-mask block"><span>WHAT THEY SAY</span></span>
+          <span class="reveal-mask block"><span>ABOUT US.</span></span>
         </h2>
       </div>
-      <div class="lg:col-span-5 lg:text-right">
-        <div class="flex items-center gap-4 lg:justify-end">
-          <div class="display text-6xl text-amber tracking-tight">4.8</div>
-          <div class="text-left">
-            <div class="text-amber text-lg tracking-wider">★★★★★</div>
-            <div class="mono text-[10px] tracking-[0.25em] text-white/45 uppercase mt-1">887 reviews on Google</div>
-          </div>
+
+      <div class="lg:col-span-5 lg:pl-10">
+        <div class="reveal-mask inline-flex items-center gap-4 border border-white/15 rounded-full px-5 py-3 bg-white/[0.03]">
+          <span class="text-crema text-xl leading-none">★</span>
+          <span class="font-display font-black text-2xl tracking-[-0.02em] text-white">
+            {BRAND.rating.toFixed(1)}
+          </span>
+          <span class="h-5 w-px bg-white/15"></span>
+          <span class="font-mono text-[10px] tracking-[0.24em] text-white/60">
+            ON GOOGLE REVIEWS
+          </span>
         </div>
       </div>
     </div>
 
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
-      {reviews.map((r, i) => (
-        <article class="reveal relative border border-white/10 bg-white/[0.02] p-6 flex flex-col gap-5" style={`transition-delay:${i * 110}ms`}>
-          <div class="flex items-start justify-between">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-amber/20 border border-amber/30 flex items-center justify-center mono text-[11px] text-amber">
-                {r.initials}
+    <!-- Cards -->
+    <div class="mt-14 sm:mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
+      {REVIEWS.map((r, i) => (
+        <article
+          class="fade-up relative border border-white/12 rounded-[2px] p-7 sm:p-8 bg-white/[0.02] flex flex-col"
+          style={`transition-delay:${i * 100}ms`}
+          data-tilt="4"
+        >
+          <div class="flex items-center gap-1 text-crema text-[15px]">
+            {Array.from({ length: 5 }).map((_, k) => (
+              <span class={k < r.rating ? '' : 'text-white/20'}>★</span>
+            ))}
+          </div>
+
+          <p class="mt-6 font-sans text-[14.5px] leading-relaxed text-white/75 flex-1">
+            “{r.text}”
+          </p>
+
+          <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+            <div>
+              <div class="font-display font-black text-base tracking-[-0.01em] text-white">
+                {r.author}
               </div>
-              <div>
-                <div class="text-white text-sm font-medium">{r.name}</div>
-                <div class="mono text-[10px] tracking-[0.2em] text-white/40 uppercase mt-0.5">Google Review</div>
+              <div class="font-mono text-[9.5px] tracking-[0.28em] text-white/40 mt-1">
+                {r.role}
               </div>
             </div>
-            <div class="text-amber text-xs tracking-wider">{'★'.repeat(r.rating)}</div>
-          </div>
-          <p class="text-sm leading-[1.85] text-white/65">"{r.text}"</p>
-          <div class="mt-auto pt-4 border-t border-white/10 mono text-[10px] tracking-[0.25em] text-white/30 uppercase">
-            Verified visit
+            <div class="font-mono text-[9.5px] tracking-[0.28em] text-white/40">
+              {String(i + 1).padStart(2, '0')}
+            </div>
           </div>
         </article>
       ))}
     </div>
 
-    <!-- Contact strip -->
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-white/10 pt-10">
-      <div>
-        <div class="mono text-[10px] tracking-[0.3em] text-white/40 uppercase">Visit</div>
-        <div class="text-white text-sm mt-2 leading-relaxed">5XX8+X8, Erbil<br/>Erbil Governorate, 44001, Iraq</div>
-      </div>
-      <div>
-        <div class="mono text-[10px] tracking-[0.3em] text-white/40 uppercase">Call</div>
-        <a href="tel:+9647516244424" class="text-white text-sm mt-2 block ulink">+964 751 624 4424</a>
-      </div>
-      <div>
-        <div class="mono text-[10px] tracking-[0.3em] text-white/40 uppercase">Hours</div>
-        <div class="text-white text-sm mt-2 flex items-center gap-2">
-          <span class="dot-pulse"></span>
-          <span>Open daily · 07:00 — 21:00</span>
+    <!-- Counts -->
+    <div class="mt-16 sm:mt-20 grid grid-cols-2 md:grid-cols-4 border-y border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10">
+      {counts.map((c) => (
+        <div class="px-6 py-8 flex flex-col items-center justify-center">
+          <div class="font-display font-black text-4xl sm:text-5xl tracking-[-0.04em] text-white leading-none tabular-nums">
+            {c.value}
+          </div>
+          <div class="font-mono text-[10px] tracking-[0.3em] text-white/45 mt-3">
+            {c.label}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>

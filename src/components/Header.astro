@@ -1,96 +1,136 @@
 ---
+import { BRAND } from '../data/site.ts';
 const links = [
-  { label: 'Shop', href: '#shop', i: '01' },
-  { label: 'Menu', href: '#menu', i: '02' },
-  { label: 'Our Story', href: '#story', i: '03' },
-  { label: 'Locations', href: '#locations', i: '04' },
+  { label: 'BRUNCH', href: '#menu', n: '01' },
+  { label: 'INSTAGRAM', href: '#instagram', n: '02' },
+  { label: 'LOCATIONS', href: '#locations', n: '03' },
+  { label: 'REVIEWS', href: '#reviews', n: '04' },
+  { label: 'OUR STORY', href: '#philosophy', n: '05' },
 ];
 ---
-<header id="siteHeader" class="fixed inset-x-4 sm:inset-x-10 top-4 sm:top-6 z-50 flex items-center justify-between transition-colors duration-500" data-theme="dark">
-  <nav class="hidden lg:flex items-center gap-8 mono text-[11px] tracking-[0.22em] uppercase" aria-label="Primary">
-    {links.map((l) => (
-      <a href={l.href} class="ulink opacity-80 hover:opacity-100" data-nav>{l.label}</a>
-    ))}
-  </nav>
 
-  <button id="menuToggle" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Open menu" aria-expanded="false">
-    <span class="block w-6 h-px bg-current"></span>
-    <span class="block w-6 h-px bg-current"></span>
-  </button>
-
-  <a href="#top" class="absolute left-1/2 -translate-x-1/2 display text-lg sm:text-2xl tracking-tight" aria-label="Fabuela home">
-    FABUELA
-  </a>
-
-  <a href="#order" class="flex items-center gap-3 mono text-[11px] tracking-[0.25em] uppercase">
-    <span class="hidden sm:inline">Order Online</span>
-    <span class="sm:hidden">Order</span>
-    <span class="dot-pulse" aria-hidden="true"></span>
-  </a>
-</header>
-
-<div id="mobileDrawer" class="fixed inset-0 z-40 bg-ink text-white translate-y-full transition-transform duration-700 ease-[cubic-bezier(.16,1,.3,1)] hidden lg:hidden">
-  <div class="h-full flex flex-col justify-between p-8 pt-28">
-    <nav class="flex flex-col gap-2" aria-label="Mobile">
-      {links.map((l) => (
-        <a href={l.href} class="flex items-baseline gap-4 py-3 border-b border-white/10" data-drawer>
-          <span class="mono text-xs text-white/35">{l.i}</span>
-          <span class="display text-5xl tracking-tight">{l.label.toUpperCase()}</span>
+<header
+  id="site-header"
+  data-current-theme="dark"
+  class="fixed inset-x-4 sm:inset-x-8 lg:inset-x-10 top-4 sm:top-6 z-50"
+>
+  <div class="flex items-center justify-between gap-4">
+    <!-- Left: nav links (desktop) -->
+    <nav class="hidden lg:flex items-center gap-7" aria-label="Primary">
+      {links.slice(0, 3).map((l) => (
+        <a
+          href={l.href}
+          class="nav-link font-mono text-[11px] tracking-[0.22em] ul-link transition-opacity hover:opacity-100 opacity-90"
+        >
+          {l.label}
         </a>
       ))}
     </nav>
-    <div class="flex justify-between mono text-xs text-white/40 tracking-[0.25em] uppercase">
-      <span>Erbil · Sulaymaniyah · Baghdad</span>
-      <span>2026</span>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-toggle"
+      type="button"
+      class="lg:hidden hamb inline-flex flex-col gap-[5px] p-2 -m-2"
+      aria-expanded="false"
+      aria-controls="mobile-drawer"
+      aria-label="Toggle navigation"
+    >
+      <span class="block h-[1.5px] w-6"></span>
+      <span class="block h-[1.5px] w-5"></span>
+    </button>
+
+    <!-- Center brand -->
+    <a href="#top" class="flex items-center gap-3 group" aria-label={BRAND.name}>
+      <img
+        src={BRAND.profilePic}
+        alt=""
+        referrerpolicy="no-referrer"
+        class="h-9 w-9 rounded-full object-cover border border-current/20 transition-transform duration-500 group-hover:scale-105"
+        style="border-color: color-mix(in oklab, currentColor 22%, transparent);"
+      />
+      <div class="leading-none">
+        <div class="brand-word font-display font-black text-sm sm:text-base tracking-[-0.02em]">
+          FABUELA
+        </div>
+        <div class="brand-sub font-mono text-[9px] tracking-[0.28em] mt-1">CAFE &amp; BRUNCH</div>
+      </div>
+    </a>
+
+    <!-- Right: CTA -->
+    <div class="flex items-center gap-4">
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Secondary">
+        {links.slice(3).map((l) => (
+          <a
+            href={l.href}
+            class="nav-link font-mono text-[11px] tracking-[0.22em] ul-link"
+          >
+            {l.label}
+          </a>
+        ))}
+      </nav>
+
+      <a
+        href="#order"
+        class="nav-cta hidden sm:inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] ul-link"
+      >
+        <span class="inline-block h-[6px] w-[6px] rounded-full bg-crema animate-pulse-dot"></span>
+        ORDER ONLINE
+      </a>
     </div>
   </div>
-</div>
 
-<script is:inline>
-  (function () {
-    const header = document.getElementById('siteHeader');
-    const toggle = document.getElementById('menuToggle');
-    const drawer = document.getElementById('mobileDrawer');
-    const drawerLinks = drawer.querySelectorAll('[data-drawer]');
+  <!-- Mobile drawer -->
+  <div
+    id="mobile-drawer"
+    class="fixed inset-0 z-[60] bg-roast text-white opacity-0 pointer-events-none transition-opacity duration-500 lg:hidden"
+  >
+    <div class="h-full px-6 py-6 flex flex-col">
+      <div class="flex items-center justify-between">
+        <div class="font-mono text-[10px] tracking-[0.3em] text-white/50">// NAVIGATION</div>
+        <button
+          id="menu-close"
+          type="button"
+          class="font-mono text-[11px] tracking-[0.25em] text-white/70 p-2 -m-2"
+          onclick="document.getElementById('menu-toggle').click()"
+          aria-label="Close navigation"
+        >
+          CLOSE ✕
+        </button>
+      </div>
 
-    const openDrawer = () => {
-      drawer.classList.remove('hidden');
-      requestAnimationFrame(() => drawer.style.transform = 'translateY(0)');
-      document.body.classList.add('no-scroll');
-      toggle.setAttribute('aria-expanded', 'true');
-    };
-    const closeDrawer = () => {
-      drawer.style.transform = 'translateY(100%)';
-      document.body.classList.remove('no-scroll');
-      toggle.setAttribute('aria-expanded', 'false');
-      setTimeout(() => drawer.classList.add('hidden'), 750);
-    };
-    toggle.addEventListener('click', () => {
-      toggle.getAttribute('aria-expanded') === 'true' ? closeDrawer() : openDrawer();
-    });
-    drawerLinks.forEach((l) => l.addEventListener('click', closeDrawer));
+      <nav class="mt-14 flex-1" aria-label="Mobile">
+        <ul class="flex flex-col gap-6">
+          {links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="group flex items-baseline gap-4"
+              >
+                <span class="font-mono text-[11px] text-crema/80 tracking-[0.22em]">{l.n}</span>
+                <span class="font-display font-black text-4xl sm:text-5xl tracking-[-0.03em] transition-colors group-hover:text-crema">
+                  {l.label}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-    // Dynamic theme detection based on section under header
-    const sections = document.querySelectorAll('[data-surface]');
-    const applyTheme = () => {
-      const y = window.scrollY + 60;
-      let theme = 'dark';
-      sections.forEach((s) => {
-        const top = s.offsetTop;
-        const bottom = top + s.offsetHeight;
-        if (y >= top && y < bottom) theme = s.getAttribute('data-surface');
-      });
-      if (header.getAttribute('data-theme') !== theme) {
-        header.setAttribute('data-theme', theme);
-        if (theme === 'light') {
-          header.style.color = '#070707';
-        } else {
-          header.style.color = '#ffffff';
-        }
-      }
-    };
-    window.addEventListener('scroll', applyTheme, { passive: true });
-    window.addEventListener('load', applyTheme);
-    applyTheme();
-  })();
-</script>
+      <div class="mt-auto pt-8 border-t border-white/10 flex items-end justify-between gap-4">
+        <div>
+          <div class="font-mono text-[10px] tracking-[0.3em] text-white/40">OPEN DAILY</div>
+          <div class="font-mono text-[11px] tracking-[0.22em] mt-1">07:00 – 23:00</div>
+        </div>
+        <a
+          href={BRAND.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-[11px] tracking-[0.22em] ul-link"
+        >
+          {BRAND.instagramHandle}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

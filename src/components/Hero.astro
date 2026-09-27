@@ -1,102 +1,151 @@
 ---
-const heroImage = 'https://lh3.googleusercontent.com/grass-cs/AABkmLfGfYHr6ZDWXMy7lVq0q1lJuZaxEIm2-pX6JjQekl6O9CaaZyFbH1gUddhanW1QFKBdERPVsm3j1DxpI3Hbbgi0wIG0xtkzAgU4Ci7ZsWFS6-7NAkdUdcf6Mzq3f8GML84DKJB-reWG5MY=w800-h1000-k-no';
-const secondary = 'https://lh3.googleusercontent.com/grass-cs/ACvplmMiVGuyRzM99jjTFMMCIvKBRApl_AezNT49x0cHUIYZaVF-iikTfdL8prOLj-7VtIhJjk8m2OqdGTxJSochYFB4shopLSeMG5F-uRfsiyds4A24dzZeIynVQdrp-0SBsDTOaoZvV8DFZAoX=w600-h800-k-no';
----
-<section id="top" data-surface="dark" class="relative min-h-screen bg-ink overflow-hidden noise">
-  <!-- Ambient gradient -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute -top-40 -left-40 w-[60vw] h-[60vw] rounded-full blur-[160px] opacity-[0.35]" style="background: radial-gradient(circle, #6E3E22 0%, transparent 65%);"></div>
-    <div class="absolute -bottom-80 right-0 w-[70vw] h-[70vw] rounded-full blur-[180px] opacity-[0.28]" style="background: radial-gradient(circle, #C69B6E 0%, transparent 60%);"></div>
-  </div>
+import { BRAND } from '../data/site.ts';
 
-  <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 pt-32 sm:pt-40 pb-44 sm:pb-52 min-h-screen flex flex-col justify-between">
-    <div class="grid lg:grid-cols-12 gap-10 items-center flex-1">
-      <!-- Left copy -->
-      <div class="lg:col-span-6 xl:col-span-5 flex flex-col gap-8">
-        <div class="mono text-[11px] tracking-[0.3em] text-white/55 uppercase">
-          // The first brunch cafe in Iraq
+const heroImage =
+  'https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/819021610_17946220923319753_4683366529875807962_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=auJkTd8GQEwQ7kNvwGBaCrT&_nc_oc=Adrb0TXAfBIDP4MZmUDwebBI1D6QL127YKmJGpfoR2fAlF2vzJnbWLsyEOwRVE-41No&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=894QDhTe_WSwFhcRmKJ6Dw&_nc_ss=79a8c&oh=00_AQLiNc81uh1iBL-y8qm0EfMPrAmEFf-U74hlYPg6WGoenQ&oe=6ABF4A46';
+---
+
+<section
+  id="top"
+  data-theme="dark"
+  class="relative grain overflow-hidden min-h-[100svh] flex flex-col"
+>
+  <!-- Ambient liquid -->
+  <div class="ambient-liquid" aria-hidden="true"></div>
+
+  <!-- Left readability scrim -->
+  <div
+    class="pointer-events-none absolute inset-0 z-[1]"
+    style="background: linear-gradient(90deg, rgba(7,7,7,0.85) 0%, rgba(7,7,7,0.35) 45%, transparent 62%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative z-10 px-6 sm:px-10 lg:px-12 pt-32 sm:pt-36 lg:pt-40 pb-32 sm:pb-28 flex-1">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+      <!-- LEFT COLUMN -->
+      <div class="lg:col-span-6 xl:col-span-7">
+        <div class="reveal-mask mb-6">
+          <div class="font-mono text-[10px] sm:text-[11px] tracking-[0.3em] text-white/60">
+            // THE FIRST BRUNCH CAFÉ IN IRAQ
+          </div>
         </div>
 
-        <h1 class="display text-[15vw] sm:text-[11vw] lg:text-[6.2rem] xl:text-[7rem] text-white leading-[0.9]">
-          <span class="line-mask"><span>COFFEE</span></span>
-          <span class="line-mask"><span>FOR</span></span>
+        <h1 class="font-display font-black leading-[0.88] tracking-[-0.045em] text-white text-[clamp(2.6rem,10vw,7rem)]">
+          <span class="reveal-mask block"><span>BRUNCH FOR</span></span>
           <span class="relative inline-block">
-            <span class="line-mask"><span>YOUR</span></span>
-            <span class="script absolute -right-[3.2em] sm:-right-[2.6em] bottom-[0.05em] text-[.42em] text-amber rotate-[-6deg]">
-              <span class="wipe-mask"><span>brunch&nbsp;moment</span></span>
+            <span class="reveal-mask block pr-2"><span>YOUR</span></span>
+            <span
+              class="script-wipe font-script font-bold text-crema absolute left-[38%] sm:left-[34%] lg:left-[30%] -bottom-4 sm:-bottom-6 lg:-bottom-8 text-[clamp(2.4rem,8vw,6.5rem)] leading-none tracking-normal"
+              aria-hidden="true"
+            >
+              moment
             </span>
           </span>
         </h1>
 
-        <p class="max-w-md text-[13px] sm:text-sm leading-[1.8] text-white/55 uppercase tracking-[0.06em]">
-          Erbil's original brunch house. Specialty beans, slow hours, and thoughtful plates — served without ceremony.
+        <p class="reveal-mask mt-16 sm:mt-20 max-w-md">
+          <span class="block font-sans text-[13px] sm:text-sm leading-relaxed text-white/60 tracking-[0.02em]">
+            CAREFULLY SOURCED BEANS AND THOUGHTFULLY PLATED BRUNCH — SERVED DAILY ACROSS ERBIL, SULAYMANIYAH, AND BAGHDAD.
+          </span>
         </p>
 
-        <div class="flex items-center gap-8 mt-2">
-          <a href="#menu" class="group flex items-center gap-3 mono text-[11px] tracking-[0.3em] uppercase text-white/90 hover:text-white">
-            <span>Explore Menu</span>
-            <span class="block transition-transform duration-500 group-hover:translate-x-1.5">→</span>
+        <div class="reveal-mask mt-10">
+          <a
+            href="#menu"
+            class="inline-flex items-center gap-3 font-mono text-[12px] tracking-[0.28em] text-white ul-link group"
+          >
+            <span>EXPLORE MENU</span>
+            <span class="inline-block transition-transform duration-500 group-hover:translate-x-1.5">→</span>
           </a>
-          <div class="flex items-center gap-2 mono text-[11px] tracking-[0.22em] uppercase text-white/45">
-            <span class="dot-pulse" aria-hidden="true"></span>
-            <span>Open Now</span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4 mt-6 pt-6 border-t border-white/10">
-          <div class="flex items-center gap-2.5">
-            <span class="mono text-[11px] text-amber">★ 4.8</span>
-            <span class="mono text-[10px] text-white/40 tracking-[0.2em] uppercase">887 Google Reviews</span>
-          </div>
         </div>
       </div>
 
-      <!-- Right visual -->
-      <div class="lg:col-span-6 xl:col-span-7 relative">
-        <div class="relative aspect-[5/6] sm:aspect-[4/5] max-w-[560px] ml-auto"
-             data-tilt="8">
-          <div class="absolute -top-6 -left-6 mono text-[10px] tracking-[0.3em] text-white/35 uppercase">// Fabuela signature</div>
-          <div class="relative w-full h-full overflow-hidden rounded-[2px] border border-white/10 bg-surface">
-            <img src={heroImage} alt="Fabuela specialty coffee with latte art" loading="eager" class="w-full h-full object-cover scale-[1.02] hover:scale-105 transition-transform duration-[1400ms] ease-out" />
-            <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"></div>
+      <!-- RIGHT COLUMN — Product visual -->
+      <div class="lg:col-span-6 xl:col-span-5 relative">
+        <div
+          class="relative mx-auto max-w-[520px] aspect-[4/5] rounded-[2px] overflow-hidden border border-white/10 cursor-grab active:cursor-grabbing"
+          data-tilt="9"
+          style="background: linear-gradient(180deg, rgba(23,23,21,0.6) 0%, rgba(7,7,7,0.6) 100%);"
+        >
+          <img
+            src={heroImage}
+            alt="Fabuela signature brunch plate"
+            referrerpolicy="no-referrer"
+            class="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10"></div>
+
+          <!-- rating badge -->
+          <div class="absolute top-4 left-4 flex items-center gap-2 bg-black/55 backdrop-blur-md border border-white/15 px-3 py-2 rounded-full">
+            <span class="text-crema text-[13px] leading-none">★</span>
+            <span class="font-mono text-[10.5px] tracking-[0.2em] text-white">{BRAND.rating}</span>
+            <span class="h-3 w-px bg-white/20"></span>
+            <span class="font-mono text-[10px] tracking-[0.18em] text-white/60">{BRAND.reviewCount} REVIEWS</span>
           </div>
 
-          <!-- Floating spec card -->
-          <div class="absolute -bottom-4 -left-4 sm:-left-8 bg-ink/70 backdrop-blur-md border border-white/15 p-4 w-56">
-            <div class="mono text-[10px] tracking-[0.3em] text-white/45 uppercase">// In the cup</div>
-            <div class="flex justify-between items-baseline mt-2">
-              <span class="display text-lg text-white tracking-tight">HOUSE LATTE</span>
-              <span class="mono text-xs text-amber">$4.20</span>
+          <!-- Bottom spec -->
+          <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
+            <div>
+              <div class="font-mono text-[10px] tracking-[0.28em] text-white/55">// SIGNATURE PLATE</div>
+              <div class="font-display font-black text-2xl sm:text-3xl tracking-[-0.02em] text-white mt-1">
+                EGGS BENEDICT
+              </div>
             </div>
-            <div class="mono text-[10px] tracking-[0.22em] text-white/40 mt-2">DAILY · OAT · TO GO</div>
+            <div class="font-mono text-[11px] tracking-[0.2em] text-crema whitespace-nowrap">
+              IQD 12,500
+            </div>
           </div>
+        </div>
 
-          <!-- Small secondary thumb -->
-          <div class="hidden sm:block absolute -top-10 -right-8 w-32 h-40 overflow-hidden border border-white/10">
-            <img src={secondary} alt="Fabuela interior" class="w-full h-full object-cover" loading="lazy" />
+        <!-- Floating glass spec card -->
+        <div class="hidden md:block absolute -left-4 lg:-left-8 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+          <div class="bg-white/[0.06] backdrop-blur-xl border border-white/15 rounded-[2px] p-4 w-[220px] shadow-2xl">
+            <div class="font-mono text-[9.5px] tracking-[0.3em] text-crema/80">// IN THE PLATE</div>
+            <div class="font-display font-black text-xl tracking-[-0.02em] text-white mt-2">
+              FABUELA SIGNATURE
+            </div>
+            <div class="h-px bg-white/15 my-3"></div>
+            <div class="font-mono text-[9.5px] tracking-[0.22em] text-white/60 leading-relaxed">
+              HOUSE MADE · DAILY · FRESH
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Bottom info bar -->
-    <div class="absolute inset-x-6 sm:inset-x-10 bottom-6 sm:bottom-8">
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x sm:divide-white/10 mono text-[10px] tracking-[0.22em] uppercase">
-        <div class="sm:pr-8">
-          <div class="text-white/35">Hours</div>
-          <div class="text-white mt-1">07:00 — 21:00 Daily</div>
+  <!-- Bottom info bar -->
+  <div class="relative z-10 border-t border-white/10">
+    <div class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+      <div class="px-6 sm:px-10 lg:px-12 py-5 flex items-center gap-3">
+        <span class="h-[6px] w-[6px] rounded-full bg-crema animate-pulse-dot shrink-0"></span>
+        <div>
+          <div class="font-mono text-[9.5px] tracking-[0.3em] text-white/40">OPEN DAILY</div>
+          <div class="font-mono text-[11px] tracking-[0.22em] text-white/85 mt-0.5">07:00 – 23:00</div>
         </div>
-        <div class="sm:px-8">
-          <div class="text-white/35">Erbil · HQ</div>
-          <div class="text-white mt-1">Empire Pearl P7, Erbil</div>
+      </div>
+      <div class="px-6 sm:px-10 lg:px-12 py-5">
+        <div class="font-mono text-[9.5px] tracking-[0.3em] text-white/40">LOCATED IN ERBIL</div>
+        <div class="font-mono text-[11px] tracking-[0.22em] text-white/85 mt-0.5">
+          EMPIRE PEARL · P7
         </div>
-        <div class="hidden sm:block sm:pl-8 text-right">
-          <div class="text-white/35">Follow</div>
-          <div class="text-white mt-1 flex gap-4 justify-end">
-            <a href="https://instagram.com/fabuela.iq" class="ulink" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://tiktok.com" class="ulink" target="_blank" rel="noopener">TikTok</a>
-          </div>
-        </div>
+      </div>
+      <div class="px-6 sm:px-10 lg:px-12 py-5 flex items-center justify-between">
+        <a
+          href={BRAND.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-mono text-[11px] tracking-[0.22em] text-white/85 ul-link"
+        >
+          INSTAGRAM
+        </a>
+        <a
+          href={BRAND.phoneHref}
+          class="font-mono text-[11px] tracking-[0.22em] text-white/85 ul-link"
+        >
+          CALL US →
+        </a>
       </div>
     </div>
   </div>
